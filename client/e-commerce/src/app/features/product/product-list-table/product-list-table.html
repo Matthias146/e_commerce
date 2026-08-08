@@ -1,0 +1,24 @@
+<table class="min-w-full divide-y divide-gray-200">
+  <thead class="bg-gray-800 text-white">
+  <tr>
+    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Image</th>
+    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Name</th>
+    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Price</th>
+    <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">Units in Stock</th>
+  </tr>
+  </thead>
+  <tbody class="bg-white divide-y divide-gray-200">
+  @for (tempProduct of products(); track $index) {
+    <tr>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <img ngSrc="{{tempProduct.imageUrl}}" alt="some" height="50" width="50"/>
+      </td>
+      <td class="px-6 py-4 whitespace-nowrap">{{tempProduct.name}}</td>
+      <td class="px-6 py-4 whitespace-nowrap">{{tempProduct.unitPrice | currency: "EUR"}}</td>
+    <td class="px-6 py-4 whitespace-nowrap">{{tempProduct.unitsInStock}}</td>
+    </tr>
+  } @empty {
+    <p>no Products found !!!</p>
+  }
+  </tbody>
+</table>
