@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Header} from './header/header';
 import {Sidebar} from './sidebar/sidebar';
 import {Footer} from './footer/footer';
-import {ProductListTable} from '../../features/product/product-list-table/product-list-table';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -10,7 +10,7 @@ import {ProductListTable} from '../../features/product/product-list-table/produc
     Header,
     Sidebar,
     Footer,
-    ProductListTable
+    RouterOutlet
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',

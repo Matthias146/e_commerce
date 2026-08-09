@@ -1,93 +1,42 @@
 <div class="section-content section-content-p30">
   <div class="w-full px-4">
 
-    <div class="overflow-hidden rounded-lg bg-white shadow">
-      <div class="overflow-x-auto">
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-        <table class="min-w-full divide-y divide-gray-200">
-          <thead class="bg-gray-800 text-white">
-          <tr>
-            <th class="px-6 py-3">
-              <div class="flex items-center gap-2">
-                <svg
-                  lucideImage
-                  class="h-4 w-4">
-                </svg>
-                <span>Image</span>
-              </div>
-            </th>
-            <th class="px-6 py-3">
-              <div class="flex items-center gap-2">
-                <svg
-                  lucidePackage
-                  class="h-4 w-4">
-                </svg>
+      @for (tempProduct of products(); track $index) {
 
-                <span>Name</span>
-              </div>
-            </th>
-            <th class="px-6 py-3">
-              <div class="flex items-center gap-2">
-                <svg
-                  lucideBadgeEuro
-                  class="h-4 w-4">
-                </svg>
+        <div class="product-box">
 
-                <span>Price</span>
-              </div>
-            </th>
-            <th class="px-6 py-3">
-              <div class="flex items-center gap-2">
-                <svg
-                  lucideBoxes
-                  class="h-4 w-4">
-                </svg>
+          <img
+            [ngSrc]="tempProduct.imageUrl"
+            [alt]="tempProduct.name"
+            width="250"
+            height="250"
+            class="h-64 w-full rounded-lg object-contain"
+          />
 
-                <span>Stock</span>
-              </div>
-            </th>
-          </tr>
-          </thead>
+          <h1 class="mt-4 text-lg font-semibold">
+            {{ tempProduct.name }}
+          </h1>
 
-          <tbody class="divide-y divide-gray-200 bg-white">
-            @for (tempProduct of products(); track $index) {
-              <tr class="transition hover:bg-gray-50">
-                <td class="px-6 py-4">
-                  <img
-                    [ngSrc]="tempProduct.imageUrl"
-                    [alt]="tempProduct.name"
-                    width="70"
-                    height="70"
-                    class="h-16 w-16 rounded-md object-contain"
-                  />
-                </td>
+          <div class="price mt-2">
+            {{ tempProduct.unitPrice | currency:'EUR' }}
+          </div>
 
-                <td class="px-6 py-4 font-medium text-gray-900">
-                  {{ tempProduct.name }}
-                </td>
+          <a href="#" class="primary-btn mt-4 inline-block">
+            Add to Cart
+          </a>
 
-                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                  {{ tempProduct.unitPrice | currency: "EUR" }}
-                </td>
+        </div>
 
-                <td class="px-6 py-4 whitespace-nowrap text-gray-700">
-                  {{ tempProduct.unitsInStock }}
-                </td>
-              </tr>
-            } @empty {
-              <tr>
-                <td
-                  colspan="4"
-                  class="px-6 py-12 text-center text-gray-500"
-                >
-                  No products found.
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
+      } @empty {
 
-      </div>
+        <div class="col-span-full py-16 text-center text-gray-500">
+          No products found.
+        </div>
+
+      }
+
     </div>
 
   </div>
