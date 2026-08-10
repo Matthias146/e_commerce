@@ -1,13 +1,13 @@
 import {Component, inject} from '@angular/core';
 import {ProductService} from '../product.service';
 import {rxResource, toSignal} from '@angular/core/rxjs-interop';
-import {CommonModule, CurrencyPipe} from '@angular/common';
+import {CommonModule, CurrencyPipe, NgOptimizedImage} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
   imports: [
-    CurrencyPipe, CommonModule
+    CurrencyPipe, CommonModule, NgOptimizedImage
   ],
   templateUrl: './product-list.html',
   styleUrl: './product-list.scss',
@@ -21,6 +21,7 @@ export class ProductList {
 
 
   readonly productsResource = rxResource({
+    params: () => this.categoryId()?.get('id'),
     defaultValue: [],
     stream: () => {
       const id = this.categoryId()?.get('id');
