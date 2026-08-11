@@ -20,4 +20,7 @@
       <module name="ecommerce" options="-parameters" />
     </option>
   </component>
+  <component name="TypeScriptCompiler">
+    <option name="memoryAutoIncrease" value="true" />
+  </component>
 </project>

@@ -1,4 +1,4 @@
-
+import { ProductCategory } from './product-category/product-category';
 
 export interface Product {
   sku: string;
@@ -12,8 +12,14 @@ export interface Product {
   lastUpdated: Date;
 }
 
-export interface GetResponse {
+export interface GetResponseProducts {
   _embedded: {
     products: Product[];
-  }
+  };
+}
+
+export interface GetResponseProductsCategory {
+  _embedded: {
+    productCategory: ProductCategory[];
+  };
 }
