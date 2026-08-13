@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { ProductService } from '../../../features/product/product.service';
+import { ProductService } from '../../../features/product/data/services/product.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({

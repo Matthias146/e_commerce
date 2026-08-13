@@ -1,5 +1,4 @@
-import {Component, signal} from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-product-category',
@@ -8,7 +7,6 @@ import {Component, signal} from '@angular/core';
   styleUrl: './product-category.scss',
 })
 export class ProductCategory {
-  id = signal(0);
-  categoryName = signal("");
+  id = 0;
+  categoryName = '';
 }
-

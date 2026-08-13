@@ -1,18 +1,19 @@
 <form
+  (ngSubmit)="doSearch(searchInput.value)"
   class="form-header flex items-center gap-2"
-  onsubmit="return false;"
-  method="GET"
 >
   <input
+    #searchInput
     class="au-input au-input-xl"
     type="text"
     name="search"
-    placeholder="Search for data ..."
+    id="search"
+    placeholder="Search for products ..."
   />
 
   <button
-    class="au-btn-submit"
     type="submit"
+    class="au-btn-submit"
   >
     Search
   </button>

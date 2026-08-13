@@ -1,9 +1,13 @@
 import { inject, Service } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { map, Observable } from 'rxjs';
-import { GetResponseProducts, GetResponseProductsCategory, Product } from './product.interface';
-import { ProductCategory } from './product-category/product-category';
+import { map, Observable, tap } from 'rxjs';
+import {
+  GetResponseProducts,
+  GetResponseProductsCategory,
+  Product,
+} from '../models/product.interface';
+import { ProductCategory } from '../../product-category/product-category';
 
 @Service()
 export class ProductService {
@@ -27,5 +31,14 @@ export class ProductService {
     return this.http
       .get<GetResponseProductsCategory>(this.categoryUrl)
       .pipe(map((response) => response._embedded.productCategory));
+  }
+
+  searchProducts(keyword: string): Observable<Product[]> {
+    return this.http
+      .get<GetResponseProducts>(`${this.baseUrl}/search/findByNameContaining?name=${keyword}`)
+      .pipe(
+        tap((response) => console.log('SEARCH RESPONSE:', response)),
+        map((response) => response._embedded.products),
+      );
   }
 }
