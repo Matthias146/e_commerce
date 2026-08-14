@@ -1,6 +1,7 @@
 import { ProductCategory } from '../../product-category/product-category';
 
 export interface Product {
+  id: number;
   sku: string;
   name: string;
   description: string;

@@ -3,22 +3,23 @@
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-      @for (tempProduct of products(); track $index) {
+      @for (tempProduct of products(); track tempProduct.id) {
 
         <div class="product-box">
-
-          <img
-            [ngSrc]="tempProduct.imageUrl"
-            [alt]="tempProduct.name"
-            width="250"
-            height="200"
-            class="h-64 w-full rounded-lg object-contain"
-          />
-
-          <h1 class="mt-4 text-lg font-semibold">
-            {{ tempProduct.name }}
-          </h1>
-
+          <a [routerLink]="[tempProduct.id]">
+            <img
+              [ngSrc]="tempProduct.imageUrl"
+              [alt]="tempProduct.name"
+              width="250"
+              height="200"
+              class="h-64 w-full rounded-lg object-contain"
+            />
+          </a>
+          <a [routerLink]="[tempProduct.id]">
+            <h1 class="mt-4 text-lg font-semibold">
+              {{ tempProduct.name }}
+            </h1>
+          </a>
           <div class="price mt-2">
             {{ tempProduct.unitPrice | currency:'EUR' }}
           </div>

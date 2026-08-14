@@ -1,1 +1,18 @@
-<p>product-detail works!</p>
+<div class="detail-section">
+  <div class="container mx-auto px-4">
+    @if (product(); as product) {
+      <img [ngSrc]="product.imageUrl" [alt]="product.name" class="detail-image" width="300" height="400"/>
+      <h3>{{ product.name }}</h3>
+      <div class="price">
+        {{ product.unitPrice | currency: "EUR" }}
+      </div>
+      <a href="#" class="primary-btn">Add to Cart</a>
+      <hr>
+      <br>
+      <h4>Description</h4>
+      <p>{{ product.description }}</p>
+    }
+    <br>
+    <a [routerLink]="['/products']" class="primary-btn">Back to Product List</a>
+  </div>
+</div>

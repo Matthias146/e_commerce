@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { Layout } from './core/layout/layout';
 import { ProductList } from './features/product/product-list/product-list';
+import { ProductDetail } from './features/product/product-detail/product-detail';
 
 export const routes: Routes = [
   {
@@ -8,10 +9,9 @@ export const routes: Routes = [
     component: Layout,
     children: [
       { path: '', component: ProductList },
-      { path: 'category', component: ProductList },
-      { path: 'products', component: ProductList },
       { path: 'search/:keyword', component: ProductList },
-      { path: 'category/:id', component: ProductList },
+      { path: 'category/:categoryId', component: ProductList },
+      { path: ':id', component: ProductDetail },
     ],
   },
   {

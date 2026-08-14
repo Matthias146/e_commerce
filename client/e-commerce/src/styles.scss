@@ -765,7 +765,12 @@ table.table.table-bordered th {
 }
 
 .detail-section {
-  margin-top: 60px
+  margin: 32px
+}
+
+detail-img {
+  width: 30%;
+
 }
 
 /**/
@@ -903,7 +908,8 @@ footer ul li {
   }
   .main-content {
     padding-top: 50px;
-    padding-bottom: 100px
+    padding-bottom: 100px;
+    margin: 24px;
   }
   .cart-area.d-n {
     display: none
