@@ -1,4 +1,3 @@
-// @ts-check
 const eslint = require('@eslint/js');
 const { defineConfig } = require('eslint/config');
 const tseslint = require('typescript-eslint');
@@ -15,6 +14,25 @@ module.exports = defineConfig([
     ],
     processor: angular.processInlineTemplates,
     rules: {
+      semi: ['error', 'always'],
+      'no-console': 'warn',
+      'prefer-const': 'error',
+      'arrow-body-style': ['warn', 'as-needed'],
+      '@typescript-eslint/explicit-function-return-type': [
+        'warn',
+        {
+          allowExpressions: true,
+          allowTypedFunctionExpressions: true,
+        },
+      ],
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+        },
+      ],
+
       '@angular-eslint/directive-selector': [
         'error',
         {
@@ -23,6 +41,7 @@ module.exports = defineConfig([
           style: 'camelCase',
         },
       ],
+
       '@angular-eslint/component-selector': [
         'error',
         {
@@ -33,9 +52,12 @@ module.exports = defineConfig([
       ],
     },
   },
+
   {
     files: ['**/*.html'],
+
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
+
     rules: {},
   },
 ]);

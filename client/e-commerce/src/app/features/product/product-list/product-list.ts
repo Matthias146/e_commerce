@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductService } from '../data/services/product.service';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { switchMap } from 'rxjs';
+import { combineLatest, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -15,11 +15,17 @@ export class ProductList {
   private readonly productService = inject(ProductService);
   private readonly route = inject(ActivatedRoute);
 
+  pageNumber = signal(1);
+  pageSize = signal(5);
+  totalElements = 100;
+  totalPages = 5;
+  private readonly pageNumber$ = toObservable(this.pageNumber);
+  private readonly pageSize$ = toObservable(this.pageSize);
   readonly routeParams = toSignal(this.route.paramMap);
 
   readonly products = toSignal(
-    this.route.paramMap.pipe(
-      switchMap((params) => {
+    combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$]).pipe(
+      switchMap(([params, pageNumber, pageSize]) => {
         const keyword = params.get('keyword');
         const categoryId = params.get('categoryId');
 
@@ -28,12 +34,41 @@ export class ProductList {
         }
 
         if (categoryId) {
-          return this.productService.getProductsByCategory(Number(categoryId));
+          return this.productService
+            .getProductsByCategoryPaginate(pageNumber - 1, this.pageSize(), Number(categoryId))
+            .pipe(
+              map((response) => {
+                this.totalElements = response.page.totalElements;
+
+                return response._embedded.products;
+              }),
+            );
         }
 
-        return this.productService.getProductList();
+        return this.productService.getProductListPaginate(pageNumber - 1, this.pageSize()).pipe(
+          map((response) => {
+            this.totalElements = response.page.totalElements;
+            this.totalPages = response.page.totalPages;
+
+            return response._embedded.products;
+          }),
+        );
       }),
     ),
     { initialValue: [] },
   );
+
+  previousPage(): void {
+    if (this.pageNumber() > 1) {
+      this.pageNumber.update((page) => page - 1);
+    }
+  }
+
+  nextPage(): void {
+    this.pageNumber.update((page) => page + 1);
+  }
+  updatePageSize(size: number): void {
+    this.pageSize.set(size);
+    this.pageNumber.set(1);
+  }
 }

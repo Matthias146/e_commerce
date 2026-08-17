@@ -24,5 +24,4 @@ export class ProductDetail {
       }),
     ),
   );
-  protected readonly ProductService = ProductService;
 }

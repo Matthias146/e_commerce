@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AngularFeatureGraphSettings">
+    <option name="angularMajorOverride" value="22" />
+    <option name="mockServerCommands" value="yarn build|yarn build|false|true|&#10;yarn start:dev|yarn start:dev|true|true|" />
+    <option name="targetAngularMajor" value="22" />
+    <option name="typescriptMajorOverride" value="5" />
+  </component>
+</project>

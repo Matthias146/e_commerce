@@ -12,7 +12,6 @@ export class Search {
   protected readonly router = inject(Router);
 
   doSearch(value: string): void {
-    console.log(value);
     const keyword = value.trim();
     if (!keyword) return;
     void this.router.navigateByUrl(`products/search/${keyword}`);

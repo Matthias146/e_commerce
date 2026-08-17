@@ -21,6 +21,20 @@ export class ProductService {
       .pipe(map((response) => response._embedded.products));
   }
 
+  getProductListPaginate(page: number, pageSize: number): Observable<GetResponseProducts> {
+    return this.http.get<GetResponseProducts>(`${this.baseUrl}?page=${page}&size=${pageSize}`);
+  }
+
+  getProductsByCategoryPaginate(
+    page: number,
+    pageSize: number,
+    categoryId: number,
+  ): Observable<GetResponseProducts> {
+    return this.http.get<GetResponseProducts>(
+      `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`,
+    );
+  }
+
   getProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http
       .get<GetResponseProducts>(`${this.baseUrl}/search/findByCategoryId?id=${categoryId}`)
