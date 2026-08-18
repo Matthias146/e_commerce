@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { ProductService } from '../data/services/product.service';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { combineLatest, map, switchMap } from 'rxjs';
+import { ProductService } from '../data/services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -30,22 +30,30 @@ export class ProductList {
         const categoryId = params.get('categoryId');
 
         if (keyword) {
-          return this.productService.searchProducts(keyword);
+          return this.productService.searchProductsPaginate(pageNumber - 1, pageSize, keyword).pipe(
+            map((response) => {
+              this.totalElements = response.page.totalElements;
+              this.totalPages = response.page.totalPages;
+
+              return response._embedded.products;
+            }),
+          );
         }
 
         if (categoryId) {
           return this.productService
-            .getProductsByCategoryPaginate(pageNumber - 1, this.pageSize(), Number(categoryId))
+            .getProductsByCategoryPaginate(pageNumber - 1, pageSize, Number(categoryId))
             .pipe(
               map((response) => {
                 this.totalElements = response.page.totalElements;
+                this.totalPages = response.page.totalPages;
 
                 return response._embedded.products;
               }),
             );
         }
 
-        return this.productService.getProductListPaginate(pageNumber - 1, this.pageSize()).pipe(
+        return this.productService.getProductListPaginate(pageNumber - 1, pageSize).pipe(
           map((response) => {
             this.totalElements = response.page.totalElements;
             this.totalPages = response.page.totalPages;
@@ -57,7 +65,6 @@ export class ProductList {
     ),
     { initialValue: [] },
   );
-
   previousPage(): void {
     if (this.pageNumber() > 1) {
       this.pageNumber.update((page) => page - 1);

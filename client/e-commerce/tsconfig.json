@@ -20,6 +20,8 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
+    "fullTemplateTypeCheck": true,
+    "strictNullChecks": true,
     "extendedDiagnostics": {
       "checks": {
         "interpolatedSignalNotInvoked": "suppress",

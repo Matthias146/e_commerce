@@ -95,7 +95,12 @@
             >
               Next →
             </button>
-            <select class="select w-10" [value]="pageSize()" #pageSelect (change)="updatePageSize(+pageSelect.value)">
+            <select
+              class="select w-10"
+              [value]="pageSize()"
+              #pageSelect
+              (change)="updatePageSize(+pageSelect.value)"
+            >
               <option value="5" selected="true">5</option>
               <option value="10">10</option>
               <option value="20">20</option>

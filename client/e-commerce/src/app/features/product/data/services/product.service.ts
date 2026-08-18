@@ -35,6 +35,16 @@ export class ProductService {
     );
   }
 
+  searchProductsPaginate(
+    page: number,
+    pageSize: number,
+    keyword: string,
+  ): Observable<GetResponseProducts> {
+    return this.http.get<GetResponseProducts>(
+      `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}`,
+    );
+  }
+
   getProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http
       .get<GetResponseProducts>(`${this.baseUrl}/search/findByCategoryId?id=${categoryId}`)
