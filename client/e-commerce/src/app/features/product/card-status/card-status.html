@@ -1,0 +1,12 @@
+<div class="cart-area">
+  <a href="shopping-detail.html" class="flex items-center gap-2">
+    <div class="total">
+      {{totalPrice() | currency: 'EUR'}} <span>{{totalQuantity()}}</span>
+    </div>
+
+    <i
+      class="fa fa-shopping-cart"
+      aria-hidden="true"
+    ></i>
+  </a>
+</div>

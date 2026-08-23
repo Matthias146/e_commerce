@@ -15,7 +15,7 @@
     "module": "preserve"
   },
   "angularCompilerOptions": {
-    "plugin": [{ "name": "typescript-tslint-plugin" }],
+    "plugin": [],
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
@@ -24,7 +24,7 @@
     "strictNullChecks": true,
     "extendedDiagnostics": {
       "checks": {
-        "interpolatedSignalNotInvoked": "suppress",
+        "interpolatedSignalNotInvoked": "error",
         "uninvokedFunctionInTextInterpolation": "error"
       }
     }

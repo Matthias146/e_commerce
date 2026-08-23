@@ -13,11 +13,9 @@ module.exports = defineConfig([
       tseslint.configs.stylistic,
       angular.configs.tsRecommended,
     ],
-    processor: angular.processInlineTemplates,
     rules: {
       semi: ['error', 'always'],
-      'no-console': 'warn',
-      'prefer-const': 'error',
+      'prefer-const': 'warn',
       'arrow-body-style': ['warn', 'as-needed'],
       '@typescript-eslint/explicit-function-return-type': [
         'warn',

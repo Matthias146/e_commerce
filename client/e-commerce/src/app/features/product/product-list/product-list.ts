@@ -4,6 +4,9 @@ import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { combineLatest, map, switchMap } from 'rxjs';
 import { ProductService } from '../data/services/product.service';
+import { Product } from '../data/models/product.interface';
+import { CartService } from '../data/services/cart.service';
+import { CartItem } from '../data/models/cartItem.interface';
 
 @Component({
   selector: 'app-product-list',
@@ -13,6 +16,7 @@ import { ProductService } from '../data/services/product.service';
 })
 export class ProductList {
   private readonly productService = inject(ProductService);
+  private readonly cartService = inject(CartService);
   private readonly route = inject(ActivatedRoute);
 
   pageNumber = signal(1);
@@ -21,7 +25,6 @@ export class ProductList {
   totalPages = 5;
   private readonly pageNumber$ = toObservable(this.pageNumber);
   private readonly pageSize$ = toObservable(this.pageSize);
-  readonly routeParams = toSignal(this.route.paramMap);
 
   readonly products = toSignal(
     combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$]).pipe(
@@ -63,7 +66,7 @@ export class ProductList {
         );
       }),
     ),
-    { initialValue: [] },
+    { initialValue: [] as Product[] },
   );
   previousPage(): void {
     if (this.pageNumber() > 1) {
@@ -77,5 +80,17 @@ export class ProductList {
   updatePageSize(size: number): void {
     this.pageSize.set(size);
     this.pageNumber.set(1);
+  }
+
+  addToCart(product: Product): void {
+    const cartItem: CartItem = {
+      id: product.id,
+      name: product.name,
+      imageUrl: product.imageUrl,
+      unitPrice: product.unitPrice,
+      quantity: 1,
+    };
+
+    this.cartService.addToCart(cartItem);
   }
 }
