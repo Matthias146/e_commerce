@@ -1,53 +1,68 @@
-import { Service, signal } from '@angular/core';
+import { computed, Service, signal } from '@angular/core';
 import { CartItem } from '../models/cartItem.interface';
 
 @Service()
 export class CartService {
-  cartItems = signal<CartItem[]>([]);
-  readonly totalPrice = signal(0);
-  readonly totalQuantity = signal(0);
+  private readonly cartItemsState = signal<CartItem[]>([]);
+
+  readonly cartItems = this.cartItemsState.asReadonly();
+
+  readonly hasItems = computed(() => this.cartItems().length > 0);
+
+  readonly totalQuantity = computed(() =>
+    this.cartItems().reduce((total, item) => total + item.quantity, 0),
+  );
+
+  readonly totalPrice = computed(() =>
+    this.cartItems().reduce((total, item) => total + item.quantity * item.unitPrice, 0),
+  );
 
   addToCart(cartItem: CartItem): void {
-    let alreadyExitsInCart = false;
-    let exitingCartItem = undefined;
+    const existingItem = this.cartItems().some((item) => item.id === cartItem.id);
 
-    if (this.cartItems().length > 0) {
-      exitingCartItem = this.cartItems().find((tempCartItem) => tempCartItem.id === cartItem.id);
-      alreadyExitsInCart = exitingCartItem !== undefined;
-    }
-    if (alreadyExitsInCart) {
-      exitingCartItem!.quantity++;
+    if (existingItem) {
+      this.cartItemsState.update((items) =>
+        items.map((item) =>
+          item.id === cartItem.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item,
+        ),
+      );
     } else {
-      this.cartItems.update((items) => [...items, cartItem]);
+      this.cartItemsState.update((items) => [...items, cartItem]);
     }
-    this.computeCartTotals();
   }
 
-  computeCartTotals(): void {
-    let totalPriceValue = 0;
-    let totalQuantityValue = 0;
-
-    for (const currentCartItem of this.cartItems()) {
-      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
-      totalQuantityValue += currentCartItem.quantity;
-    }
-
-    this.totalPrice.set(totalPriceValue);
-    this.totalQuantity.set(totalQuantityValue);
-
-    this.logCartData(totalPriceValue, totalQuantityValue);
+  decreaseQuantity(cartItem: CartItem): void {
+    this.cartItemsState.update((items) =>
+      items
+        .map((item) => (item.id === cartItem.id ? { ...item, quantity: item.quantity - 1 } : item))
+        .filter((item) => item.quantity > 0),
+    );
   }
 
-  logCartData(totalPriceValue: number, totalQuantityValue: number): void {
+  remove(item: CartItem): void {
+    this.cartItemsState.update((items) => items.filter((i) => i.id !== item.id));
+  }
+
+  logCartData(): void {
     console.log('Content of Cart');
 
-    for (const tempCartItem of this.cartItems()) {
-      const subTotalPrice = tempCartItem.quantity * tempCartItem.unitPrice;
+    for (const item of this.cartItems()) {
+      const subtotalPrice = item.quantity * item.unitPrice;
+
       console.log(
-        `name: ${tempCartItem.name}, quantity: ${tempCartItem.quantity}, unitPrice: ${tempCartItem.unitPrice}, subTotalPrice: ${subTotalPrice}`,
+        `name: ${item.name}, quantity: ${item.quantity}, unitPrice: ${item.unitPrice}, subtotalPrice: ${subtotalPrice}`,
       );
     }
-    console.log(`totalPrice: ${totalPriceValue.toFixed(2)}, totalQuantity: ${totalQuantityValue}`);
+
+    console.log(
+      `totalPrice: ${this.totalPrice().toFixed(2)}, totalQuantity: ${this.totalQuantity()}`,
+    );
+
     console.log('-----');
   }
 }
