@@ -3,10 +3,10 @@ import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { combineLatest, map, switchMap } from 'rxjs';
-import { ProductService } from '../data/services/product.service';
-import { Product } from '../data/models/product.interface';
-import { CartService } from '../data/services/cart.service';
-import { CartItem } from '../data/models/cartItem.interface';
+import { ProductService } from '../../data/services/product.service';
+import { Product } from '../../data/models/product.interface';
+import { CartService } from '../../../cart/data/services/cart.service';
+import { CartItem } from '../../../cart/data/models/cartItem.interface';
 
 @Component({
   selector: 'app-product-list',

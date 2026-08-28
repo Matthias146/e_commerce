@@ -7,7 +7,7 @@ import {
   GetResponseProductsCategory,
   Product,
 } from '../models/product.interface';
-import { ProductCategory } from '../../product-category/product-category';
+import { ProductCategory } from '../../pages/product-category/product-category';
 
 @Service()
 export class ProductService {

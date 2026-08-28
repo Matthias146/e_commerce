@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CartService } from '../data/services/cart.service';
+import { CartService } from '../../../cart/data/services/cart.service';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 

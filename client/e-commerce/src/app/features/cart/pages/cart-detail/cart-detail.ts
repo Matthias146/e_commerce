@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { CartService } from '../data/services/cart.service';
+import { CartService } from '../../data/services/cart.service';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { CartItem } from '../data/models/cartItem.interface';
+import { CartItem } from '../../data/models/cartItem.interface';
 
 @Component({
   selector: 'app-cart-detail',

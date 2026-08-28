@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Search } from '../search/search';
-import { CardStatus } from '../../../features/product/card-status/card-status';
+import { CardStatus } from '../../../features/product/components/card-status/card-status';
 
 @Component({
   selector: 'app-header',
