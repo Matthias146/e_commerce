@@ -8,25 +8,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c9cf02a4-cce8-424b-90b8-ba31478413e2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../.idea/angularFeatureGraph.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/stylesheetLinters/stylelint.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/prettier.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/prettier.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/.vscode/extensions.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/.vscode/launch.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/.vscode/tasks.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/angular.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/eslint.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/eslint.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/core/layout/search/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/core/layout/search/search.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/data/models/product.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/data/models/product.interface.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/data/services/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/data/services/product.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-detail/product-detail.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-detail/product-detail.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-list/product-list.html" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-list/product-list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-list/product-list.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-list/product-list.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/src/styles.scss" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/styles.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/tsconfig.app.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/tsconfig.app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/e-commerce/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-category/product-category.ts" beforeDir="false" afterPath="$PROJECT_DIR$/e-commerce/src/app/features/product/product-category/product-category.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +20,9 @@
   </component>
   <component name="CompilerWorkspaceConfiguration">
     <option name="MAKE_PROJECT_ON_SAVE" value="true" />
+  </component>
+  <component name="EmbeddingIndexingInfo">
+    <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -55,6 +43,9 @@
     <commands />
     <urls />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0,
   &quot;fromUser&quot;: false
@@ -64,30 +55,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/matthiashammelehle/Desktop/Dev/java/e_commerce/client",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "/Applications/IntelliJ IDEA.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.preferred.runtime.type.id&quot;: &quot;node&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/matthiashammelehle/Desktop/Dev/java/e_commerce/client&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;Errors&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/matthiashammelehle/.gradle/caches/9.6.0/transforms/31ac13dfc190973a5cb69dadce3b779c/transformed/idea-2026.2-aarch64/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;
   }
-}]]></component>
+}</component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-63390994e64e-intellij.indexing.shared.core-IU-262.8665.258" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.8665.258" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="c9cf02a4-cce8-424b-90b8-ba31478413e2" name="Changes" comment="" />
@@ -108,6 +111,7 @@
       <workItem from="1786959383019" duration="44000" />
       <workItem from="1786959435022" duration="307000" />
       <workItem from="1786959751626" duration="1296000" />
+      <workItem from="1787074244271" duration="417000" />
     </task>
     <servers />
   </component>

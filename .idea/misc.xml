@@ -7,8 +7,16 @@
         <option value="$PROJECT_DIR$/server/ecommerce/pom.xml" />
       </list>
     </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/server/ecommerce/pom.xml" />
+      </set>
+    </option>
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="26" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
+  </component>
+  <component name="ViteConfiguration">
+    <option name="mode" value="DISABLED" />
   </component>
 </project>
