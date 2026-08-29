@@ -24,20 +24,6 @@ ul {
   margin: 0;
 }
 
-button,
-input[type='button'] {
-  cursor: pointer;
-}
-
-button:focus,
-input:focus {
-  outline: 0;
-}
-
-input {
-  border: none;
-}
-
 button {
   border: none;
 }
