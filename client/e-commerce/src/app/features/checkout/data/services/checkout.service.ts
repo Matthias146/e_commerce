@@ -8,11 +8,14 @@ import {
   State,
 } from '../models/countries.interface';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
+import { Purchase } from '../models/purchase.interface';
+import { PurchaseResponse } from '../models/purchaseResponse.interface';
 
 @Service()
 export class CheckoutService {
   private readonly countriesUrl = 'http://localhost:8080/api/countries';
   private readonly stateUrl = 'http://localhost:8080/api/states';
+  private readonly purchaseUrl = 'http://localhost:8080/api/checkout/purchase';
   private readonly selectedCountryCode = signal('');
   private readonly http = inject(HttpClient);
 
@@ -40,5 +43,9 @@ export class CheckoutService {
 
   selectCountry(code: string): void {
     this.selectedCountryCode.set(code);
+  }
+
+  placeOrder(purchase: Purchase): Observable<PurchaseResponse> {
+    return this.http.post<PurchaseResponse>(this.purchaseUrl, purchase);
   }
 }
