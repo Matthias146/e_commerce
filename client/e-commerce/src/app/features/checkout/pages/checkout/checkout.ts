@@ -1,4 +1,4 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { form, FormRoot } from '@angular/forms/signals';
 import { CustomerFormModel } from '../../data/models/customerFormModel.interface';
 import { createEmptyCheckoutForm } from '../../data/factories/checkout-form.factory';
@@ -8,6 +8,7 @@ import { ShippingAddressForm } from '../../components/shipping-address-form/ship
 import { BillingAddressForm } from '../../components/billing-address-form/billing-address-form';
 import { PaymentForm } from '../../components/payment-form/payment-form';
 import { checkoutSchema } from '../../validators/checkout.schema';
+import { CartService } from '../../../cart/data/services/cart.service';
 
 @Component({
   selector: 'app-checkout',
@@ -23,8 +24,9 @@ import { checkoutSchema } from '../../validators/checkout.schema';
   styleUrl: './checkout.scss',
 })
 export class Checkout {
-  totalPrice = signal(0);
-  totalQuantity = signal(0);
+  private readonly cartService = inject(CartService);
+  readonly totalPrice = this.cartService.totalPrice;
+  readonly totalQuantity = this.cartService.totalQuantity;
 
   constructor() {
     effect(() => {

@@ -6,10 +6,17 @@
     </div>
     <div class="col-md-9">
       <div class="input-space">
-        <select id="billing-country" [formField]="billingAddressForm().country">
-          <option value="USA">USA</option>
-          <option value="Canada">Canada</option>
-          <option value="Mexico">Mexico</option>
+        <select
+          #countrySelect
+          id="billing-country"
+          [formField]="billingAddressForm().country"
+          (change)="onCountryChange(countrySelect.value)"
+        >
+          @for (country of countries(); track country.id) {
+            <option [value]="country.code">
+              {{ country.name }}
+            </option>
+          }
         </select>
       </div>
     </div>
@@ -50,9 +57,11 @@
       <div class="col-md-9">
         <div class="input-space">
           <select id="billing-state" [formField]="billingAddressForm().state">
-            <option value="USA">USA</option>
-            <option value="Canada">Canada</option>
-            <option value="Mexico">Mexico</option>
+            @for (state of states(); track state.id) {
+              <option [value]="state.name">
+                {{ state.name }}
+              </option>
+            }
           </select>
         </div>
       </div>
