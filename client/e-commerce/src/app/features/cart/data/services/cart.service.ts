@@ -6,6 +6,7 @@ export class CartService {
   private readonly cartItemsState = signal<CartItem[]>([]);
 
   readonly cartItems = this.cartItemsState.asReadonly();
+  readonly storage: Storage = sessionStorage;
 
   readonly hasItems = computed(() => this.cartItems().length > 0);
 
@@ -16,6 +17,18 @@ export class CartService {
   readonly totalPrice = computed(() =>
     this.cartItems().reduce((total, item) => total + item.quantity * item.unitPrice, 0),
   );
+
+  constructor() {
+    const storedCart = sessionStorage.getItem('cartItems');
+
+    if (storedCart) {
+      this.cartItemsState.set(JSON.parse(storedCart));
+    }
+  }
+
+  private saveCart(): void {
+    sessionStorage.setItem('cartItems', JSON.stringify(this.cartItemsState()));
+  }
 
   addToCart(cartItem: CartItem): void {
     const existingItem = this.cartItems().some((item) => item.id === cartItem.id);
@@ -34,6 +47,7 @@ export class CartService {
     } else {
       this.cartItemsState.update((items) => [...items, cartItem]);
     }
+    this.saveCart();
   }
 
   decreaseQuantity(cartItem: CartItem): void {

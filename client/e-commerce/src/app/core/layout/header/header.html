@@ -2,9 +2,13 @@
   <div class="section-content section-content-p30">
     <div class="w-full px-4">
       <div class="header-wrap flex items-center justify-between">
-        <app-search/>
-        <app-card-status/>
-
+        <app-search />
+        <app-card-status />
+        @if (auth.isAuthenticated$ | async) {
+          <button type="button" (click)="logout()">Logout</button>
+        } @else {
+          <button type="button" (click)="login()">Login</button>
+        }
       </div>
 
       <div class="account-wrap"></div>
