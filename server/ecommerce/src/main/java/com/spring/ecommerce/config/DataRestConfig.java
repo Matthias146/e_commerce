@@ -7,6 +7,7 @@ import com.spring.ecommerce.entity.State;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 import org.springframework.data.rest.core.mapping.ExposureConfigurer;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 @Configuration
 public class DataRestConfig implements RepositoryRestConfigurer {
 
+	@Value("${allowed.origins}")
+	private String[] allowedOrigins;
 	private final EntityManager entityManager;
 
 	@Autowired
@@ -29,7 +32,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 	public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config, CorsRegistry cors) {
 		RepositoryRestConfigurer.super.configureRepositoryRestConfiguration(config, cors);
 
-		HttpMethod[] unsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE};
+		HttpMethod[] unsupportedActions = {HttpMethod.PUT, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PATCH};
 
 		disableHttpMethods(config.getExposureConfiguration()
 				.forDomainType(Product.class), unsupportedActions);
@@ -44,6 +47,7 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 				.forDomainType(State.class), unsupportedActions);
 
 		exposeIds(config);
+		cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins);
 	}
 
 	private static void disableHttpMethods(ExposureConfigurer config, HttpMethod[] unsupportedActions) {
