@@ -1,9 +1,6 @@
 package com.spring.ecommerce.config;
 
-import com.spring.ecommerce.entity.Country;
-import com.spring.ecommerce.entity.Product;
-import com.spring.ecommerce.entity.ProductCategory;
-import com.spring.ecommerce.entity.State;
+import com.spring.ecommerce.entity.*;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.metamodel.EntityType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +42,9 @@ public class DataRestConfig implements RepositoryRestConfigurer {
 
 		disableHttpMethods(config.getExposureConfiguration()
 				.forDomainType(State.class), unsupportedActions);
+
+		disableHttpMethods(config.getExposureConfiguration()
+				.forDomainType(Order.class), unsupportedActions);
 
 		exposeIds(config);
 		cors.addMapping(config.getBasePath() + "/**").allowedOrigins(allowedOrigins);
