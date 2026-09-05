@@ -22,7 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/product-category/**").permitAll()
                         .requestMatchers("/api/countries/**").permitAll()
                         .requestMatchers("/api/states/**").permitAll()
-                        .requestMatchers("/api/checkout/**").authenticated()
+                        .requestMatchers("/api/checkout/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(oauth2 ->
