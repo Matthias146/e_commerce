@@ -3,10 +3,11 @@ import { Search } from '../search/search';
 import { CardStatus } from '../../../features/product/components/card-status/card-status';
 import { AuthService } from '@auth0/auth0-angular';
 import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [Search, CardStatus, AsyncPipe],
+  imports: [Search, CardStatus, AsyncPipe, RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

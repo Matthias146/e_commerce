@@ -1,6 +1,7 @@
 package com.spring.ecommerce.controller;
 
 import com.spring.ecommerce.dto.PaymentInfo;
+import com.spring.ecommerce.dto.PaymentIntentResponse;
 import com.spring.ecommerce.dto.Purchase;
 import com.spring.ecommerce.dto.PurchaseResponse;
 import com.spring.ecommerce.service.CheckoutService;
@@ -26,9 +27,16 @@ public class CheckoutController {
     }
 
     @PostMapping("/purchase/intent")
-    public ResponseEntity<String> createPaymentIntent(@RequestBody PaymentInfo paymentInfo) throws StripeException {
-       PaymentIntent paymentIntent = checkoutService.createPaymentIntent(paymentInfo);
-       String paymentStr = paymentIntent.toJson();
-       return new ResponseEntity<>(paymentStr, HttpStatus.OK);
+    public ResponseEntity<PaymentIntentResponse> createPaymentIntent(
+            @RequestBody PaymentInfo paymentInfo
+    ) throws StripeException {
+
+        PaymentIntent paymentIntent =
+                checkoutService.createPaymentIntent(paymentInfo);
+
+        PaymentIntentResponse response =
+                new PaymentIntentResponse(paymentIntent.getClientSecret());
+
+        return ResponseEntity.ok(response);
     }
 }

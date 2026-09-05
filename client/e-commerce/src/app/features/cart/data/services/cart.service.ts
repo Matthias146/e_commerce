@@ -30,6 +30,11 @@ export class CartService {
     sessionStorage.setItem('cartItems', JSON.stringify(this.cartItemsState()));
   }
 
+  clearCart(): void {
+    this.cartItemsState.set([]);
+    sessionStorage.removeItem('cartItems');
+  }
+
   addToCart(cartItem: CartItem): void {
     const existingItem = this.cartItems().some((item) => item.id === cartItem.id);
 

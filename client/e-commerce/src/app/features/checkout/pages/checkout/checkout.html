@@ -10,7 +10,7 @@
         @if (!checkoutModel().billingSameAsShipping) {
           <app-billing-address-form [billingAddressForm]="checkoutForm.billingAddress" />
         }
-        <app-payment-form [paymentForm]="checkoutForm.creditCard" />
+        <app-payment-form />
         <div class="form-area">
           <h3>Review your Order</h3>
           <p>Total Quantity: {{ totalQuantity() }}</p>

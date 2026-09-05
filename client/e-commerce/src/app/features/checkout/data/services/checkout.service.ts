@@ -10,12 +10,14 @@ import {
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { Purchase } from '../models/purchase.interface';
 import { PurchaseResponse } from '../models/purchaseResponse.interface';
+import { PaymentInfo, PaymentIntentResponse } from '../models/creditCard.interface';
 
 @Service()
 export class CheckoutService {
   private readonly countriesUrl = 'http://localhost:8080/api/countries';
   private readonly stateUrl = 'http://localhost:8080/api/states';
   private readonly purchaseUrl = 'http://localhost:8080/api/checkout/purchase';
+  private readonly paymentIntentUrl = 'http://localhost:8080/api/checkout/purchase/intent';
   private readonly selectedCountryCode = signal('');
   private readonly http = inject(HttpClient);
 
@@ -47,5 +49,9 @@ export class CheckoutService {
 
   placeOrder(purchase: Purchase): Observable<PurchaseResponse> {
     return this.http.post<PurchaseResponse>(this.purchaseUrl, purchase);
+  }
+
+  createPaymentIntent(paymentInfo: PaymentInfo): Observable<PaymentIntentResponse> {
+    return this.http.post<PaymentIntentResponse>(this.paymentIntentUrl, paymentInfo);
   }
 }

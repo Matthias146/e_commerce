@@ -1,7 +1,8 @@
-export interface CreditCard {
-  cardType: string;
-  nameOnCard: string;
-  cardNumber: string;
-  expirationDate: string;
-  cvv: string;
+export interface PaymentInfo {
+  amount: number;
+  currency: string;
+}
+
+export interface PaymentIntentResponse {
+  clientSecret: string;
 }

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, effect, inject, signal, viewChild } from '@angular/core';
 import { form, FormRoot } from '@angular/forms/signals';
 import { CustomerFormModel } from '../../data/models/customerFormModel.interface';
 import { createEmptyCheckoutForm } from '../../data/factories/checkout-form.factory';
@@ -31,6 +31,7 @@ export class Checkout {
   private readonly cartService = inject(CartService);
   private readonly checkoutService = inject(CheckoutService);
   private readonly router = inject(Router);
+  readonly paymentComponent = viewChild.required(PaymentForm);
   readonly totalPrice = this.cartService.totalPrice;
   readonly totalQuantity = this.cartService.totalQuantity;
   readonly cartItems = this.cartService.cartItems;
@@ -55,6 +56,11 @@ export class Checkout {
   checkoutForm = form(this.checkoutModel, checkoutSchema, {
     submission: {
       action: async (field) => {
+        const paymentSuccessful = await this.paymentComponent().confirmPayment();
+
+        if (!paymentSuccessful) {
+          return;
+        }
         const formValue = field().value();
 
         const purchase: Purchase = {
@@ -76,6 +82,9 @@ export class Checkout {
         const response = await firstValueFrom(this.checkoutService.placeOrder(purchase));
 
         console.log(response.orderTrackingNumber);
+        this.cartService.clearCart();
+        this.checkoutModel.set(createEmptyCheckoutForm());
+        await this.router.navigate(['/products']);
       },
     },
   });

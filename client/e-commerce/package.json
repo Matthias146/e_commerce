@@ -20,6 +20,7 @@
     "@angular/router": "^22.0.0",
     "@auth0/auth0-angular": "^2.11.0",
     "@lucide/angular": "^1.30.0",
+    "@stripe/stripe-js": "^9.15.0",
     "@tailwindcss/postcss": "^4.3.3",
     "postcss": "^8.5.25",
     "rxjs": "~7.8.0",

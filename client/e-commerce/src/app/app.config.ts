@@ -30,7 +30,7 @@ export const appConfig: ApplicationConfig = {
             },
           },
           {
-            uri: 'http://localhost:8080/api/orders/my/*',
+            uri: 'http://localhost:8080/api/orders/*',
             tokenOptions: {
               authorizationParams: {
                 audience: environment.auth0.audience,

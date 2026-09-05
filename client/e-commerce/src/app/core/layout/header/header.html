@@ -5,9 +5,11 @@
         <app-search />
         <app-card-status />
         @if (auth.isAuthenticated$ | async) {
-          <button type="button" (click)="logout()">Logout</button>
+          <a routerLink="/account/orders"> My Orders </a>
+
+          <button (click)="logout()">Logout</button>
         } @else {
-          <button type="button" (click)="login()">Login</button>
+          <button (click)="login()">Login</button>
         }
       </div>
 

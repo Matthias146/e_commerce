@@ -7,21 +7,33 @@ import { Checkout } from './features/checkout/pages/checkout/checkout';
 
 export const routes: Routes = [
   {
-    path: 'products',
-    component: Layout,
-    children: [
-      { path: '', component: ProductList },
-      { path: 'cart-details', component: CartDetail },
-      { path: 'search/:keyword', component: ProductList },
-      { path: 'checkout', component: Checkout },
-      { path: 'category/:categoryId', component: ProductList },
-      { path: ':id', component: ProductDetail },
-    ],
-  },
-  {
     path: '',
     redirectTo: 'products',
     pathMatch: 'full',
+  },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      {
+        path: 'products',
+        children: [
+          { path: '', component: ProductList },
+          { path: 'search/:keyword', component: ProductList },
+          { path: 'category/:categoryId', component: ProductList },
+          { path: ':id', component: ProductDetail },
+        ],
+      },
+
+      { path: 'cart-details', component: CartDetail },
+      { path: 'checkout', component: Checkout },
+
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./features/account/account.routes').then((m) => m.accountRoutes),
+      },
+    ],
   },
   {
     path: '**',
