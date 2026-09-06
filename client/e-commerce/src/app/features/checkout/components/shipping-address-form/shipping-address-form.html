@@ -14,19 +14,50 @@
         Country
       </label>
 
-      <select
-        #countrySelect
-        id="country"
-        [formField]="shippingForm().country"
-        (change)="onCountryChange(countrySelect.value)"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      >
-        @for (country of countries(); track country.id) {
-          <option [value]="country.code">
-            {{ country.name }}
-          </option>
+      <div class="relative">
+        <select
+          #countrySelect
+          id="country"
+          [formField]="shippingForm().country"
+          (change)="onCountryChange(countrySelect.value)"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition focus:ring-2"
+          [class.border-red-500]="
+            shippingForm().country().invalid() && shippingForm().country().touched()
+          "
+          [class.focus:border-red-500]="
+            shippingForm().country().invalid() && shippingForm().country().touched()
+          "
+          [class.focus:ring-red-500]="
+            shippingForm().country().invalid() && shippingForm().country().touched()
+          "
+          [class.border-slate-300]="
+            !shippingForm().country().invalid() || !shippingForm().country().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="shippingForm().country().valid()"
+          [class.focus:ring-[var(--color-accent)]]="shippingForm().country().valid()"
+        >
+          @for (country of countries(); track country.id) {
+            <option [value]="country.code">
+              {{ country.name }}
+            </option>
+          }
+        </select>
+
+        @if (shippingForm().country().invalid() && shippingForm().country().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
         }
-      </select>
+      </div>
 
       @if (shippingForm().country().invalid() && shippingForm().country().touched()) {
         @for (error of shippingForm().country().errors(); track error.kind) {
@@ -43,13 +74,44 @@
         Street
       </label>
 
-      <input
-        type="text"
-        id="street"
-        placeholder="Street"
-        [formField]="shippingForm().street"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      />
+      <div class="relative">
+        <input
+          type="text"
+          id="street"
+          placeholder="Street"
+          [formField]="shippingForm().street"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:ring-2"
+          [class.border-red-500]="
+            shippingForm().street().invalid() && shippingForm().street().touched()
+          "
+          [class.focus:border-red-500]="
+            shippingForm().street().invalid() && shippingForm().street().touched()
+          "
+          [class.focus:ring-red-500]="
+            shippingForm().street().invalid() && shippingForm().street().touched()
+          "
+          [class.border-slate-300]="
+            !shippingForm().street().invalid() || !shippingForm().street().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="shippingForm().street().valid()"
+          [class.focus:ring-[var(--color-accent)]]="shippingForm().street().valid()"
+        />
+
+        @if (shippingForm().street().invalid() && shippingForm().street().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      </div>
 
       @if (shippingForm().street().invalid() && shippingForm().street().touched()) {
         @for (error of shippingForm().street().errors(); track error.kind) {
@@ -64,13 +126,44 @@
     <div>
       <label for="city" class="mb-2 block text-sm font-medium text-(--color-text)"> City </label>
 
-      <input
-        type="text"
-        id="city"
-        placeholder="City"
-        [formField]="shippingForm().city"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      />
+      <div class="relative">
+        <input
+          type="text"
+          id="city"
+          placeholder="City"
+          [formField]="shippingForm().city"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:ring-2"
+          [class.border-red-500]="
+            shippingForm().city().invalid() && shippingForm().city().touched()
+          "
+          [class.focus:border-red-500]="
+            shippingForm().city().invalid() && shippingForm().city().touched()
+          "
+          [class.focus:ring-red-500]="
+            shippingForm().city().invalid() && shippingForm().city().touched()
+          "
+          [class.border-slate-300]="
+            !shippingForm().city().invalid() || !shippingForm().city().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="shippingForm().city().valid()"
+          [class.focus:ring-[var(--color-accent)]]="shippingForm().city().valid()"
+        />
+
+        @if (shippingForm().city().invalid() && shippingForm().city().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      </div>
 
       @if (shippingForm().city().invalid() && shippingForm().city().touched()) {
         @for (error of shippingForm().city().errors(); track error.kind) {
@@ -85,17 +178,48 @@
     <div>
       <label for="state" class="mb-2 block text-sm font-medium text-(--color-text)"> State </label>
 
-      <select
-        id="state"
-        [formField]="shippingForm().state"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      >
-        @for (state of states(); track state.id) {
-          <option [value]="state.name">
-            {{ state.name }}
-          </option>
+      <div class="relative">
+        <select
+          id="state"
+          [formField]="shippingForm().state"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition focus:ring-2"
+          [class.border-red-500]="
+            shippingForm().state().invalid() && shippingForm().state().touched()
+          "
+          [class.focus:border-red-500]="
+            shippingForm().state().invalid() && shippingForm().state().touched()
+          "
+          [class.focus:ring-red-500]="
+            shippingForm().state().invalid() && shippingForm().state().touched()
+          "
+          [class.border-slate-300]="
+            !shippingForm().state().invalid() || !shippingForm().state().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="shippingForm().state().valid()"
+          [class.focus:ring-[var(--color-accent)]]="shippingForm().state().valid()"
+        >
+          @for (state of states(); track state.id) {
+            <option [value]="state.name">
+              {{ state.name }}
+            </option>
+          }
+        </select>
+
+        @if (shippingForm().state().invalid() && shippingForm().state().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
         }
-      </select>
+      </div>
 
       @if (shippingForm().state().invalid() && shippingForm().state().touched()) {
         @for (error of shippingForm().state().errors(); track error.kind) {
@@ -112,13 +236,44 @@
         Zip Code
       </label>
 
-      <input
-        type="text"
-        id="zipCode"
-        placeholder="Zip Code"
-        [formField]="shippingForm().zipCode"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      />
+      <div class="relative">
+        <input
+          type="text"
+          id="zipCode"
+          placeholder="Zip Code"
+          [formField]="shippingForm().zipCode"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:ring-2"
+          [class.border-red-500]="
+            shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()
+          "
+          [class.focus:border-red-500]="
+            shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()
+          "
+          [class.focus:ring-red-500]="
+            shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()
+          "
+          [class.border-slate-300]="
+            !shippingForm().zipCode().invalid() || !shippingForm().zipCode().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="shippingForm().zipCode().valid()"
+          [class.focus:ring-[var(--color-accent)]]="shippingForm().zipCode().valid()"
+        />
+
+        @if (shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      </div>
 
       @if (shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()) {
         @for (error of shippingForm().zipCode().errors(); track error.kind) {

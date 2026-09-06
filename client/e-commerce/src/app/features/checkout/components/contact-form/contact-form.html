@@ -6,7 +6,6 @@
   </div>
 
   <div class="grid gap-5 sm:grid-cols-2">
-    <!-- First Name -->
     <div>
       <label for="firstName" class="mb-2 block text-sm font-medium text-(--color-text)">
         First Name
@@ -60,19 +59,49 @@
       }
     </div>
 
-    <!-- Last Name -->
     <div>
       <label for="lastName" class="mb-2 block text-sm font-medium text-(--color-text)">
         Last Name
       </label>
 
-      <input
-        type="text"
-        id="lastName"
-        placeholder="Last Name"
-        [formField]="contactForm().lastName"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      />
+      <div class="relative">
+        <input
+          type="text"
+          id="lastName"
+          placeholder="Last Name"
+          [formField]="contactForm().lastName"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:ring-2"
+          [class.border-red-500]="
+            contactForm().lastName().invalid() && contactForm().lastName().touched()
+          "
+          [class.focus:border-red-500]="
+            contactForm().lastName().invalid() && contactForm().lastName().touched()
+          "
+          [class.focus:ring-red-500]="
+            contactForm().lastName().invalid() && contactForm().lastName().touched()
+          "
+          [class.border-slate-300]="
+            !contactForm().lastName().invalid() || !contactForm().lastName().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="contactForm().lastName().valid()"
+          [class.focus:ring-[var(--color-accent)]]="contactForm().lastName().valid()"
+        />
+
+        @if (contactForm().lastName().invalid() && contactForm().lastName().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      </div>
 
       @if (contactForm().lastName().invalid() && contactForm().lastName().touched()) {
         @for (error of contactForm().lastName().errors(); track error.kind) {
@@ -83,17 +112,47 @@
       }
     </div>
 
-    <!-- Email -->
     <div class="sm:col-span-2">
       <label for="email" class="mb-2 block text-sm font-medium text-(--color-text)"> Email </label>
 
-      <input
-        type="email"
-        id="email"
-        placeholder="you@example.com"
-        [formField]="contactForm().email"
-        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
-      />
+      <div class="relative">
+        <input
+          type="email"
+          id="email"
+          placeholder="you@example.com"
+          [formField]="contactForm().email"
+          class="w-full rounded-xl border bg-white px-4 py-3 pr-11 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:ring-2"
+          [class.border-red-500]="
+            contactForm().email().invalid() && contactForm().email().touched()
+          "
+          [class.focus:border-red-500]="
+            contactForm().email().invalid() && contactForm().email().touched()
+          "
+          [class.focus:ring-red-500]="
+            contactForm().email().invalid() && contactForm().email().touched()
+          "
+          [class.border-slate-300]="
+            !contactForm().email().invalid() || !contactForm().email().touched()
+          "
+          [class.focus:border-[var(--color-accent)]]="contactForm().email().valid()"
+          [class.focus:ring-[var(--color-accent)]]="contactForm().email().valid()"
+        />
+
+        @if (contactForm().email().invalid() && contactForm().email().touched()) {
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="absolute right-3 top-1/2 size-5 -translate-y-1/2 text-red-500"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.25 12a9.75 9.75 0 1 1 19.5 0 9.75 9.75 0 0 1-19.5 0Zm10.5-4.5a.75.75 0 0 0-1.5 0v5.25a.75.75 0 0 0 1.5 0V7.5Zm0 9a.75.75 0 1 0-1.5 0 .75.75 0 0 0 1.5 0Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        }
+      </div>
 
       @if (contactForm().email().invalid() && contactForm().email().touched()) {
         @for (error of contactForm().email().errors(); track error.kind) {
