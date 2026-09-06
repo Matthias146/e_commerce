@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { combineLatest, map, switchMap } from 'rxjs';
+import { combineLatest, finalize, map, switchMap } from 'rxjs';
 import { ProductService } from '../../data/services/product.service';
 import { Product } from '../../data/models/product.interface';
 import { CartService } from '../../../cart/data/services/cart.service';
@@ -18,6 +18,7 @@ export class ProductList {
   private readonly productService = inject(ProductService);
   private readonly cartService = inject(CartService);
   private readonly route = inject(ActivatedRoute);
+  readonly isLoading = signal(false);
 
   pageNumber = signal(1);
   pageSize = signal(10);
@@ -29,6 +30,7 @@ export class ProductList {
   readonly products = toSignal(
     combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$]).pipe(
       switchMap(([params, pageNumber, pageSize]) => {
+        this.isLoading.set(true);
         const keyword = params.get('keyword');
         const categoryId = params.get('categoryId');
 
@@ -40,6 +42,7 @@ export class ProductList {
 
               return response._embedded.products;
             }),
+            finalize(() => this.isLoading.set(false)),
           );
         }
 
@@ -53,6 +56,7 @@ export class ProductList {
 
                 return response._embedded.products;
               }),
+              finalize(() => this.isLoading.set(false)),
             );
         }
 
@@ -63,6 +67,7 @@ export class ProductList {
 
             return response._embedded.products;
           }),
+          finalize(() => this.isLoading.set(false)),
         );
       }),
     ),
