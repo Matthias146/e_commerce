@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CartService } from '../../../cart/data/services/cart.service';
-import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { LucideShoppingCart } from '@lucide/angular';
 
 @Component({
   selector: 'app-card-status',
-  imports: [CurrencyPipe, RouterLink],
+  imports: [RouterLink, LucideShoppingCart],
   templateUrl: './card-status.html',
   styleUrl: './card-status.scss',
 })

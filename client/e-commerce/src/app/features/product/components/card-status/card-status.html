@@ -1,13 +1,14 @@
-<div class="cart-area">
-  <a [routerLink]="['cart-details']" class="flex items-center gap-2">
-    <div class="total">
-      {{totalPrice() | currency: 'EUR'}} <span>{{totalQuantity()}}</span>
-    </div>
+<a
+  routerLink="/cart-details"
+  class="relative flex h-11 w-11 items-center justify-center rounded-xl text-white transition hover:bg-white/10"
+>
+  <svg lucideShoppingCart></svg>
 
-    <i
-      class="fa fa-shopping-cart"
-      aria-hidden="true"
-    ></i>
-  </a>
-</div>
-
+  @if (totalQuantity() > 0) {
+    <span
+      class="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-(--color-accent) px-1 text-xs font-bold text-white"
+    >
+      {{ totalQuantity() }}
+    </span>
+  }
+</a>

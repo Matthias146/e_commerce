@@ -20,7 +20,7 @@ export class ProductList {
   private readonly route = inject(ActivatedRoute);
 
   pageNumber = signal(1);
-  pageSize = signal(5);
+  pageSize = signal(10);
   totalElements = 100;
   totalPages = 5;
   private readonly pageNumber$ = toObservable(this.pageNumber);

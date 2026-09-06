@@ -1,20 +1,17 @@
-<form
-  (ngSubmit)="doSearch(searchInput.value)"
-  class="form-header flex items-center gap-2"
->
+<form (ngSubmit)="doSearch(searchInput.value)" class="flex w-full max-w-xl items-center gap-3">
   <input
     #searchInput
-    class="au-input au-input-xl"
     type="text"
     name="search"
     id="search"
     placeholder="Search for products ..."
     (input)="search(searchInput.value)"
+    class="w-full rounded-xl border border-white/10 bg-white/10 px-4 py-2.5 text-white placeholder:text-slate-400 outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
   />
 
   <button
     type="submit"
-    class="au-btn-submit"
+    class="rounded-xl bg-(--color-accent) px-5 py-2.5 font-medium text-white transition hover:brightness-110"
   >
     Search
   </button>
