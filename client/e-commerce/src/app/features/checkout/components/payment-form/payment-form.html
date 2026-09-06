@@ -1,5 +1,18 @@
-<fieldset>
-  <h3>Credit or Debit Card</h3>
-  <div id="payment-element"></div>
-  <div id="card-errors" class="displayError.textContent!=='': 'alert-danger mt-1'"></div>
+<fieldset class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm">
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold text-(--color-text)">Credit or Debit Card</h2>
+
+    <p class="mt-1 text-sm text-(--color-muted)">Enter your payment details securely.</p>
+  </div>
+
+  <div id="payment-element" class="rounded-xl border border-slate-300 bg-white p-4"></div>
+
+  @if (paymentError()) {
+    <div
+      class="mt-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-(--color-error)"
+      role="alert"
+    >
+      {{ paymentError() }}
+    </div>
+  }
 </fieldset>

@@ -22,7 +22,7 @@ export class PaymentForm implements OnInit {
   readonly stripePromise = loadStripe(environment.stripe.stripePublishKey);
 
   ngOnInit(): void {
-    this.createPaymentIntent();
+    void this.createPaymentIntent();
   }
 
   async createPaymentIntent(): Promise<void> {

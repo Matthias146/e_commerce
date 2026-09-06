@@ -1,85 +1,136 @@
-<fieldset class="form-area">
-  <h3>Billing Address</h3>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="billing-country">Country</label>
-    </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <select
-          #countrySelect
-          id="billing-country"
-          [formField]="billingAddressForm().country"
-          (change)="onCountryChange(countrySelect.value)"
-        >
-          @for (country of countries(); track country.id) {
-            <option [value]="country.code">
-              {{ country.name }}
-            </option>
-          }
-        </select>
-      </div>
-    </div>
+<fieldset class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm">
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold text-(--color-text)">Billing Address</h2>
+
+    <p class="mt-1 text-sm text-(--color-muted)">
+      Enter the address associated with your payment method.
+    </p>
   </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="billing-street">Street</label>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <!-- Country -->
+    <div class="sm:col-span-2">
+      <label for="billing-country" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Country
+      </label>
+
+      <select
+        #countrySelect
+        id="billing-country"
+        [formField]="billingAddressForm().country"
+        (change)="onCountryChange(countrySelect.value)"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      >
+        @for (country of countries(); track country.id) {
+          <option [value]="country.code">
+            {{ country.name }}
+          </option>
+        }
+      </select>
+
+      @if (billingAddressForm().country().invalid() && billingAddressForm().country().touched()) {
+        @for (error of billingAddressForm().country().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input
-          type="text"
-          placeholder="Street"
-          id="billing-street"
-          [formField]="billingAddressForm().street"
-        />
-      </div>
+
+    <!-- Street -->
+    <div class="sm:col-span-2">
+      <label for="billing-street" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Street
+      </label>
+
+      <input
+        type="text"
+        id="billing-street"
+        placeholder="Street"
+        [formField]="billingAddressForm().street"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (billingAddressForm().street().invalid() && billingAddressForm().street().touched()) {
+        @for (error of billingAddressForm().street().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="billing-city">City</label>
+
+    <!-- City -->
+    <div>
+      <label for="billing-city" class="mb-2 block text-sm font-medium text-(--color-text)">
+        City
+      </label>
+
+      <input
+        type="text"
+        id="billing-city"
+        placeholder="City"
+        [formField]="billingAddressForm().city"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (billingAddressForm().city().invalid() && billingAddressForm().city().touched()) {
+        @for (error of billingAddressForm().city().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input
-          type="text"
-          placeholder="City"
-          id="billing-city"
-          [formField]="billingAddressForm().city"
-        />
-      </div>
+
+    <!-- State -->
+    <div>
+      <label for="billing-state" class="mb-2 block text-sm font-medium text-(--color-text)">
+        State
+      </label>
+
+      <select
+        id="billing-state"
+        [formField]="billingAddressForm().state"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      >
+        @for (state of states(); track state.id) {
+          <option [value]="state.name">
+            {{ state.name }}
+          </option>
+        }
+      </select>
+
+      @if (billingAddressForm().state().invalid() && billingAddressForm().state().touched()) {
+        @for (error of billingAddressForm().state().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label for="billing-state">State</label>
-      </div>
-      <div class="col-md-9">
-        <div class="input-space">
-          <select id="billing-state" [formField]="billingAddressForm().state">
-            @for (state of states(); track state.id) {
-              <option [value]="state.name">
-                {{ state.name }}
-              </option>
-            }
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="billing-zipCode">Zip Code</label>
-    </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input
-          type="text"
-          placeholder="Zip Code"
-          id="billing-zipCode"
-          [formField]="billingAddressForm().zipCode"
-        />
-      </div>
+
+    <!-- Zip Code -->
+    <div>
+      <label for="billing-zipCode" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Zip Code
+      </label>
+
+      <input
+        type="text"
+        id="billing-zipCode"
+        placeholder="Zip Code"
+        [formField]="billingAddressForm().zipCode"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (billingAddressForm().zipCode().invalid() && billingAddressForm().zipCode().touched()) {
+        @for (error of billingAddressForm().zipCode().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
   </div>
 </fieldset>

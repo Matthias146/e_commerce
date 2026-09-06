@@ -1,79 +1,151 @@
-<fieldset class="form-area">
-  <h3>Shipping Address</h3>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="country">Country</label>
+<fieldset class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm">
+  <div class="mb-6">
+    <h2 class="text-xl font-semibold text-(--color-text)">Shipping Address</h2>
+
+    <p class="mt-1 text-sm text-(--color-muted)">
+      Enter the address where your order should be delivered.
+    </p>
+  </div>
+
+  <div class="grid gap-5 sm:grid-cols-2">
+    <!-- Country -->
+    <div class="sm:col-span-2">
+      <label for="country" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Country
+      </label>
+
+      <select
+        #countrySelect
+        id="country"
+        [formField]="shippingForm().country"
+        (change)="onCountryChange(countrySelect.value)"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      >
+        @for (country of countries(); track country.id) {
+          <option [value]="country.code">
+            {{ country.name }}
+          </option>
+        }
+      </select>
+
+      @if (shippingForm().country().invalid() && shippingForm().country().touched()) {
+        @for (error of shippingForm().country().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <select
-          #countrySelect
-          id="country"
-          [formField]="shippingForm().country"
-          (change)="onCountryChange(countrySelect.value)"
-        >
-          @for (country of countries(); track country.id) {
-            <option [value]="country.code">
-              {{ country.name }}
-            </option>
-          }
-        </select>
-      </div>
+
+    <!-- Street -->
+    <div class="sm:col-span-2">
+      <label for="street" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Street
+      </label>
+
+      <input
+        type="text"
+        id="street"
+        placeholder="Street"
+        [formField]="shippingForm().street"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (shippingForm().street().invalid() && shippingForm().street().touched()) {
+        @for (error of shippingForm().street().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
+    </div>
+
+    <!-- City -->
+    <div>
+      <label for="city" class="mb-2 block text-sm font-medium text-(--color-text)"> City </label>
+
+      <input
+        type="text"
+        id="city"
+        placeholder="City"
+        [formField]="shippingForm().city"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (shippingForm().city().invalid() && shippingForm().city().touched()) {
+        @for (error of shippingForm().city().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
+    </div>
+
+    <!-- State -->
+    <div>
+      <label for="state" class="mb-2 block text-sm font-medium text-(--color-text)"> State </label>
+
+      <select
+        id="state"
+        [formField]="shippingForm().state"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      >
+        @for (state of states(); track state.id) {
+          <option [value]="state.name">
+            {{ state.name }}
+          </option>
+        }
+      </select>
+
+      @if (shippingForm().state().invalid() && shippingForm().state().touched()) {
+        @for (error of shippingForm().state().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
+    </div>
+
+    <!-- Zip Code -->
+    <div>
+      <label for="zipCode" class="mb-2 block text-sm font-medium text-(--color-text)">
+        Zip Code
+      </label>
+
+      <input
+        type="text"
+        id="zipCode"
+        placeholder="Zip Code"
+        [formField]="shippingForm().zipCode"
+        class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-(--color-text) outline-none transition placeholder:text-slate-400 focus:border-(--color-accent) focus:ring-2 focus:ring-(--color-accent)/30"
+      />
+
+      @if (shippingForm().zipCode().invalid() && shippingForm().zipCode().touched()) {
+        @for (error of shippingForm().zipCode().errors(); track error.kind) {
+          <p class="mt-1 text-sm text-(--color-error)">
+            {{ error.message }}
+          </p>
+        }
+      }
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="street">Street</label>
-    </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input type="text" placeholder="Street" id="street" [formField]="shippingForm().street" />
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="city">City</label>
-    </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input type="text" placeholder="City" id="city" [formField]="shippingForm().city" />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-2">
-        <label for="state">State</label>
-      </div>
-      <div class="col-md-9">
-        <div class="input-space">
-          <select id="state" [formField]="shippingForm().state">
-            @for (state of states(); track state.id) {
-              <option [value]="state.name">
-                {{ state.name }}
-              </option>
-            }
-          </select>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-2">
-      <label for="zipCode">Zip Code</label>
-    </div>
-    <div class="col-md-9">
-      <div class="input-space">
-        <input
-          type="text"
-          placeholder="Zip Code"
-          id="zipCode"
-          [formField]="shippingForm().zipCode"
-        />
-      </div>
-    </div>
-  </div>
-  <div class="input-space">
-    <input type="checkbox" id="billingSameAsShipping" [formField]="billingSameAsShipping()" />
-    <label for="billingSameAsShipping"> Billing address is the same as shipping address </label>
+
+  <!-- Billing same as shipping -->
+  <div
+    class="mt-6 flex items-start gap-3 rounded-xl border border-(--color-border) bg-slate-50 p-4"
+  >
+    <input
+      type="checkbox"
+      id="billingSameAsShipping"
+      [formField]="billingSameAsShipping()"
+      class="mt-0.5 size-4 rounded border-slate-300 accent-(--color-accent)"
+    />
+
+    <label
+      for="billingSameAsShipping"
+      class="cursor-pointer text-sm font-medium text-(--color-text)"
+    >
+      Billing address is the same as shipping address
+    </label>
   </div>
 </fieldset>
