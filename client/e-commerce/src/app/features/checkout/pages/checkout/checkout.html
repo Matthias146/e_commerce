@@ -51,7 +51,17 @@
         [disabled]="checkoutForm().invalid()"
         class="w-full rounded-xl bg-(--color-primary) px-6 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover) disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 sm:w-auto"
       >
-        Purchase
+        @if (isSubmitting()) {
+          <span class="flex items-center gap-2">
+            <span
+              class="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+            ></span>
+
+            Processing...
+          </span>
+        } @else {
+          Purchase
+        }
       </button>
     </div>
   </form>

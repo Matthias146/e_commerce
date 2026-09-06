@@ -4,6 +4,7 @@ import { ProductList } from './features/product/pages/product-list/product-list'
 import { ProductDetail } from './features/product/pages/product-detail/product-detail';
 import { CartDetail } from './features/cart/pages/cart-detail/cart-detail';
 import { Checkout } from './features/checkout/pages/checkout/checkout';
+import { OrderSuccess } from './features/checkout/pages/order-success/order-success';
 
 export const routes: Routes = [
   {
@@ -27,7 +28,7 @@ export const routes: Routes = [
 
       { path: 'cart-details', component: CartDetail },
       { path: 'checkout', component: Checkout },
-
+      { path: 'checkout/success', component: OrderSuccess },
       {
         path: 'account',
         loadChildren: () =>

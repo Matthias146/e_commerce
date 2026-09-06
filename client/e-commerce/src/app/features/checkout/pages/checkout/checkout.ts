@@ -13,6 +13,7 @@ import { CheckoutService } from '../../data/services/checkout.service';
 import { Router } from '@angular/router';
 import { Purchase } from '../../data/models/purchase.interface';
 import { firstValueFrom } from 'rxjs';
+import { OrderSuccessState } from '../../data/models/orderSuccessState.interface';
 
 @Component({
   selector: 'app-checkout',
@@ -35,6 +36,7 @@ export class Checkout {
   readonly totalPrice = this.cartService.totalPrice;
   readonly totalQuantity = this.cartService.totalQuantity;
   readonly cartItems = this.cartService.cartItems;
+  readonly isSubmitting = signal(false);
 
   constructor() {
     effect(() => {
@@ -56,35 +58,54 @@ export class Checkout {
   checkoutForm = form(this.checkoutModel, checkoutSchema, {
     submission: {
       action: async (field) => {
-        const paymentSuccessful = await this.paymentComponent().confirmPayment();
+        this.isSubmitting.set(true);
 
-        if (!paymentSuccessful) {
-          return;
-        }
-        const formValue = field().value();
+        try {
+          const paymentSuccessful = await this.paymentComponent().confirmPayment();
 
-        const purchase: Purchase = {
-          customer: formValue.contact,
-          shippingAddress: formValue.shippingAddress,
-          billingAddress: formValue.billingAddress,
-          order: {
-            totalQuantity: this.totalQuantity(),
-            totalPrice: this.totalPrice(),
-          },
-          orderItems: this.cartItems().map((item) => ({
+          if (!paymentSuccessful) {
+            return;
+          }
+
+          const formValue = field().value();
+
+          const orderItems = this.cartItems().map((item) => ({
             imageUrl: item.imageUrl,
+            name: item.name,
             unitPrice: item.unitPrice,
             quantity: item.quantity,
             productId: Number(item.id),
-          })),
-        };
+          }));
 
-        const response = await firstValueFrom(this.checkoutService.placeOrder(purchase));
+          const purchase: Purchase = {
+            customer: formValue.contact,
+            shippingAddress: formValue.shippingAddress,
+            billingAddress: formValue.billingAddress,
+            order: {
+              totalQuantity: this.totalQuantity(),
+              totalPrice: this.totalPrice(),
+            },
+            orderItems,
+          };
 
-        console.log(response.orderTrackingNumber);
-        this.cartService.clearCart();
-        this.checkoutModel.set(createEmptyCheckoutForm());
-        await this.router.navigate(['/products']);
+          const response = await firstValueFrom(this.checkoutService.placeOrder(purchase));
+
+          const orderSuccessState: OrderSuccessState = {
+            orderTrackingNumber: response.orderTrackingNumber,
+            totalQuantity: this.totalQuantity(),
+            totalPrice: this.totalPrice(),
+            orderedItems: orderItems,
+          };
+
+          this.cartService.clearCart();
+          this.checkoutModel.set(createEmptyCheckoutForm());
+
+          await this.router.navigate(['/checkout/success'], {
+            state: orderSuccessState,
+          });
+        } finally {
+          this.isSubmitting.set(false);
+        }
       },
     },
   });
