@@ -1,0 +1,93 @@
+<div class="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="mb-8">
+    <p class="text-sm font-semibold uppercase tracking-wider text-(--color-accent)">Account</p>
+
+    <h1 class="mt-2 text-3xl font-bold tracking-tight text-(--color-text)">Your Orders</h1>
+
+    <p class="mt-2 text-(--color-muted)">View your previous purchases and order details.</p>
+  </div>
+
+  @if (isLoading()) {
+    <div class="flex min-h-80 items-center justify-center">
+      <div class="flex flex-col items-center gap-4">
+        <div
+          class="size-10 animate-spin rounded-full border-4 border-slate-200 border-t-(--color-accent)"
+        ></div>
+
+        <p class="text-sm font-medium text-(--color-muted)">Loading orders...</p>
+      </div>
+    </div>
+  } @else if (errorMessage()) {
+    <div class="flex min-h-80 items-center justify-center">
+      <div
+        role="alert"
+        class="max-w-lg rounded-2xl border border-red-200 bg-red-50 px-6 py-5 text-center shadow-sm"
+      >
+        <div
+          class="mx-auto flex size-10 items-center justify-center rounded-full bg-red-100 text-lg font-bold text-(--color-error)"
+        >
+          !
+        </div>
+
+        <h2 class="mt-4 text-lg font-semibold text-(--color-text)">Something went wrong</h2>
+
+        <p class="mt-2 text-sm text-(--color-error)">
+          {{ errorMessage() }}
+        </p>
+      </div>
+    </div>
+  } @else {
+    @if (orderHistory(); as response) {
+      @if (response._embedded.orders.length > 0) {
+        <div
+          class="overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm"
+        >
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50">
+                <tr class="border-b border-(--color-border) text-sm text-(--color-muted)">
+                  <th class="px-6 py-4 font-semibold">Order Tracking Number</th>
+                  <th class="px-6 py-4 font-semibold">Total Price</th>
+                  <th class="px-6 py-4 font-semibold">Total Quantity</th>
+                  <th class="px-6 py-4 font-semibold">Date</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (order of response._embedded.orders; track order.id) {
+                  <tr
+                    class="border-b border-(--color-border) last:border-b-0 transition hover:bg-slate-50/70"
+                  >
+                    <td class="max-w-xs px-6 py-4 font-mono text-sm text-(--color-text)">
+                      {{ order.orderTrackingNumber }}
+                    </td>
+
+                    <td class="px-6 py-4 font-semibold text-(--color-text)">
+                      {{ order.totalPrice | currency: 'EUR' }}
+                    </td>
+
+                    <td class="px-6 py-4 text-(--color-muted)">
+                      {{ order.totalQuantity }}
+                    </td>
+
+                    <td class="px-6 py-4 text-(--color-muted)">
+                      {{ order.dateCreated | date: 'medium' }}
+                    </td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      } @else {
+        <div
+          class="rounded-2xl border border-(--color-border) bg-(--color-surface) px-6 py-12 text-center shadow-sm"
+        >
+          <h2 class="text-lg font-semibold text-(--color-text)">No orders yet</h2>
+
+          <p class="mt-2 text-(--color-muted)">Your completed orders will appear here.</p>
+        </div>
+      }
+    }
+  }
+</div>

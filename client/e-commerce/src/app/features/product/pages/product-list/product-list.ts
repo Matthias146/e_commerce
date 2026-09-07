@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { combineLatest, finalize, map, switchMap } from 'rxjs';
+import { catchError, combineLatest, finalize, map, of, switchMap } from 'rxjs';
 import { ProductService } from '../../data/services/product.service';
 import { Product } from '../../data/models/product.interface';
 import { CartService } from '../../../cart/data/services/cart.service';
@@ -19,6 +19,7 @@ export class ProductList {
   private readonly cartService = inject(CartService);
   private readonly route = inject(ActivatedRoute);
   readonly isLoading = signal(false);
+  readonly errorMessage = signal<string | null>(null);
 
   pageNumber = signal(1);
   pageSize = signal(10);
@@ -31,6 +32,7 @@ export class ProductList {
     combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$]).pipe(
       switchMap(([params, pageNumber, pageSize]) => {
         this.isLoading.set(true);
+        this.errorMessage.set(null);
         const keyword = params.get('keyword');
         const categoryId = params.get('categoryId');
 
@@ -41,6 +43,11 @@ export class ProductList {
               this.totalPages = response.page.totalPages;
 
               return response._embedded.products;
+            }),
+            catchError(() => {
+              this.errorMessage.set('Products could not be loaded. Please try again.');
+
+              return of([] as Product[]);
             }),
             finalize(() => this.isLoading.set(false)),
           );
@@ -56,6 +63,11 @@ export class ProductList {
 
                 return response._embedded.products;
               }),
+              catchError(() => {
+                this.errorMessage.set('Products could not be loaded. Please try again.');
+
+                return of([] as Product[]);
+              }),
               finalize(() => this.isLoading.set(false)),
             );
         }
@@ -66,6 +78,11 @@ export class ProductList {
             this.totalPages = response.page.totalPages;
 
             return response._embedded.products;
+          }),
+          catchError(() => {
+            this.errorMessage.set('Products could not be loaded. Please try again.');
+
+            return of([] as Product[]);
           }),
           finalize(() => this.isLoading.set(false)),
         );

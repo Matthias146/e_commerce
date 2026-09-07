@@ -1,0 +1,104 @@
+<div class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm">
+    <div class="flex items-start gap-4">
+      <div
+        class="flex size-12 shrink-0 items-center justify-center rounded-full bg-green-100 text-2xl text-green-700"
+      >
+        ✓
+      </div>
+
+      <div>
+        <p class="text-sm font-semibold uppercase tracking-wider text-green-700">Order confirmed</p>
+
+        <h1 class="mt-1 text-3xl font-bold text-(--color-text)">Thank you for your purchase</h1>
+
+        <p class="mt-2 text-(--color-muted)">Your order was placed successfully.</p>
+      </div>
+    </div>
+  </div>
+
+  <section
+    class="mt-6 rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm"
+  >
+    <h2 class="text-xl font-semibold text-(--color-text)">Order Details</h2>
+
+    <div class="mt-5">
+      <p class="text-sm text-(--color-muted)">Tracking Number</p>
+
+      <p class="mt-1 break-all font-mono font-semibold text-(--color-text)">
+        {{ order.orderTrackingNumber }}
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="mt-6 overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm"
+  >
+    <div class="border-b border-(--color-border) px-6 py-5">
+      <h2 class="text-xl font-semibold text-(--color-text)">Your Order</h2>
+
+      <p class="mt-1 text-sm text-(--color-muted)">{{ order.totalQuantity }} items</p>
+    </div>
+
+    <div class="divide-y divide-(--color-border)">
+      @for (item of order.orderedItems; track item.productId) {
+        <div class="flex gap-5 p-6">
+          <div
+            class="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-slate-50 p-3"
+          >
+            <img
+              [ngSrc]="item.imageUrl"
+              [alt]="item.name"
+              width="96"
+              height="96"
+              class="h-full w-full object-contain"
+            />
+          </div>
+
+          <div class="flex flex-1 items-center justify-between gap-4">
+            <div>
+              <h3 class="font-semibold text-(--color-text)">
+                {{ item.name }}
+              </h3>
+
+              <p class="mt-1 text-sm text-(--color-muted)">
+                {{ item.quantity }} ×
+                {{ item.unitPrice | currency: 'EUR' }}
+              </p>
+            </div>
+
+            <p class="font-semibold text-(--color-text)">
+              {{ item.unitPrice * item.quantity | currency: 'EUR' }}
+            </p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="border-t border-(--color-border) bg-slate-50 px-6 py-5">
+      <div class="flex items-center justify-between">
+        <span class="text-lg font-semibold text-(--color-text)"> Total </span>
+
+        <span class="text-2xl font-bold text-(--color-text)">
+          {{ order.totalPrice | currency: 'EUR' }}
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
+    <a
+      routerLink="/products"
+      class="inline-flex items-center justify-center rounded-xl border border-(--color-border) bg-(--color-surface) px-5 py-3 font-semibold text-(--color-text) transition hover:bg-slate-50"
+    >
+      Continue Shopping
+    </a>
+
+    <a
+      routerLink="/account/orders"
+      class="inline-flex items-center justify-center rounded-xl bg-(--color-primary) px-5 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover)"
+    >
+      View My Orders
+    </a>
+  </div>
+</div>
