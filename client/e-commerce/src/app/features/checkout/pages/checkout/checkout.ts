@@ -37,6 +37,7 @@ export class Checkout {
   readonly totalQuantity = this.cartService.totalQuantity;
   readonly cartItems = this.cartService.cartItems;
   readonly isSubmitting = signal(false);
+  readonly orderError = signal<string | null>(null);
 
   constructor() {
     effect(() => {
@@ -59,6 +60,7 @@ export class Checkout {
     submission: {
       action: async (field) => {
         this.isSubmitting.set(true);
+        this.orderError.set(null);
 
         try {
           const paymentSuccessful = await this.paymentComponent().confirmPayment();
@@ -103,6 +105,8 @@ export class Checkout {
           await this.router.navigate(['/checkout/success'], {
             state: orderSuccessState,
           });
+        } catch {
+          this.orderError.set('Your order could not be completed. Please try again.');
         } finally {
           this.isSubmitting.set(false);
         }

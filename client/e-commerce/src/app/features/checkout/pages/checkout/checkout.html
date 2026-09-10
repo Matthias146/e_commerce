@@ -45,10 +45,20 @@
       </div>
     </section>
 
+    @if (orderError()) {
+      <div role="alert" class="rounded-2xl border border-red-200 bg-red-50 px-5 py-4 shadow-sm">
+        <p class="font-semibold text-(--color-error)">Order failed</p>
+
+        <p class="mt-1 text-sm text-(--color-error)">
+          {{ orderError() }}
+        </p>
+      </div>
+    }
+
     <div class="flex justify-end">
       <button
         type="submit"
-        [disabled]="checkoutForm().invalid()"
+        [disabled]="checkoutForm().invalid() || isSubmitting()"
         class="w-full rounded-xl bg-(--color-primary) px-6 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover) disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 sm:w-auto"
       >
         @if (isSubmitting()) {
