@@ -8,12 +8,15 @@ import {
   Product,
 } from '../models/product.interface';
 import { ProductCategory } from '../../pages/product-category/product-category';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Service()
 export class ProductService {
   private readonly baseUrl = 'http://localhost:8080/api/products';
   private readonly categoryUrl = 'http://localhost:8080/api/product-category';
   private readonly http = inject(HttpClient);
+
+  readonly productCategories = toSignal(this.getProductCategories(), { initialValue: [] });
 
   getProductList(): Observable<Product[]> {
     return this.http
