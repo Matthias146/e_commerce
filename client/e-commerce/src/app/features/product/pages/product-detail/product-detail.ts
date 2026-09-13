@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ProductService } from '../../data/services/product.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { switchMap } from 'rxjs';
+import { catchError, finalize, of, switchMap } from 'rxjs';
 import { CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { CartService } from '../../../cart/data/services/cart.service';
 import { CartItem } from '../../../cart/data/models/cartItem.interface';
@@ -17,13 +17,25 @@ export class ProductDetail {
   private readonly productService = inject(ProductService);
   private readonly cartService = inject(CartService);
   private readonly route = inject(ActivatedRoute);
+  readonly isLoading = signal(false);
+  readonly errorMessage = signal<string | null>(null);
 
   readonly product = toSignal(
     this.route.paramMap.pipe(
       switchMap((params) => {
         const productId = Number(params.get('id'));
 
-        return this.productService.getProduct(productId);
+        this.isLoading.set(true);
+        this.errorMessage.set(null);
+
+        return this.productService.getProduct(productId).pipe(
+          catchError(() => {
+            this.errorMessage.set('Product could not be loaded. Please try again.');
+
+            return of(undefined);
+          }),
+          finalize(() => this.isLoading.set(false)),
+        );
       }),
     ),
   );
