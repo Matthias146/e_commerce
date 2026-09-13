@@ -1,15 +1,17 @@
-<div class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-  <div class="mb-8">
+<div class="mx-auto w-full max-w-5xl px-2 py-6 sm:px-4 sm:py-8 lg:px-8 lg:py-10">
+  <div class="mb-6 sm:mb-8">
     <p class="text-sm font-semibold uppercase tracking-wider text-(--color-accent)">Checkout</p>
 
-    <h1 class="mt-2 text-3xl font-bold tracking-tight text-(--color-text)">Complete your Order</h1>
+    <h1 class="mt-2 text-2xl font-bold tracking-tight text-(--color-text) sm:text-3xl">
+      Complete your Order
+    </h1>
 
     <p class="mt-2 text-(--color-muted)">
       Enter your details and review your order before purchasing.
     </p>
   </div>
 
-  <form [formRoot]="checkoutForm" class="space-y-6">
+  <form [formRoot]="checkoutForm" class="space-y-5 sm:space-y-6">
     <app-contact-form [contactForm]="checkoutForm.contact" />
 
     <app-shipping-address-form
@@ -23,11 +25,13 @@
 
     <app-payment-form />
 
-    <section class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm">
-      <h2 class="text-xl font-semibold text-(--color-text)">Review your Order</h2>
+    <section
+      class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-5 shadow-sm sm:p-6"
+    >
+      <h2 class="text-lg font-semibold text-(--color-text) sm:text-xl">Review your Order</h2>
 
       <div class="mt-5 space-y-3">
-        <div class="flex items-center justify-between text-(--color-muted)">
+        <div class="flex items-center justify-between gap-4 text-(--color-muted)">
           <span>Total Quantity</span>
 
           <span class="font-semibold text-(--color-text)">
@@ -35,10 +39,10 @@
           </span>
         </div>
 
-        <div class="flex items-center justify-between border-t border-(--color-border) pt-4">
+        <div class="flex items-center justify-between gap-4 border-t border-(--color-border) pt-4">
           <span class="text-lg font-semibold text-(--color-text)"> Total </span>
 
-          <span class="text-2xl font-bold text-(--color-text)">
+          <span class="text-xl font-bold text-(--color-text) sm:text-2xl">
             {{ totalPrice() | currency: 'EUR' }}
           </span>
         </div>
@@ -46,7 +50,10 @@
     </section>
 
     @if (orderError()) {
-      <div role="alert" class="rounded-2xl border border-red-200 bg-red-50 px-5 py-4 shadow-sm">
+      <div
+        role="alert"
+        class="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 shadow-sm sm:px-5"
+      >
         <p class="font-semibold text-(--color-error)">Order failed</p>
 
         <p class="mt-1 text-sm text-(--color-error)">
@@ -62,7 +69,7 @@
         class="w-full rounded-xl bg-(--color-primary) px-6 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover) disabled:cursor-not-allowed disabled:bg-slate-300 disabled:text-slate-500 sm:w-auto"
       >
         @if (isSubmitting()) {
-          <span class="flex items-center gap-2">
+          <span class="flex items-center justify-center gap-2">
             <span
               class="size-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
             ></span>

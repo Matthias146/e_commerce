@@ -1,16 +1,18 @@
-<div class="mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
-  <div class="rounded-2xl border border-green-200 bg-green-50 p-6 shadow-sm">
+<div class="mx-auto w-full max-w-5xl px-2 py-6 sm:px-4 sm:py-8 lg:px-8 lg:py-10">
+  <div class="rounded-2xl border border-green-200 bg-green-50 p-5 shadow-sm sm:p-6">
     <div class="flex items-start gap-4">
       <div
-        class="flex size-12 shrink-0 items-center justify-center rounded-full bg-green-100 text-2xl text-green-700"
+        class="flex size-11 shrink-0 items-center justify-center rounded-full bg-green-100 text-xl text-green-700 sm:size-12 sm:text-2xl"
       >
         ✓
       </div>
 
-      <div>
+      <div class="min-w-0">
         <p class="text-sm font-semibold uppercase tracking-wider text-green-700">Order confirmed</p>
 
-        <h1 class="mt-1 text-3xl font-bold text-(--color-text)">Thank you for your purchase</h1>
+        <h1 class="mt-1 text-2xl font-bold text-(--color-text) sm:text-3xl">
+          Thank you for your purchase
+        </h1>
 
         <p class="mt-2 text-(--color-muted)">Your order was placed successfully.</p>
       </div>
@@ -18,45 +20,45 @@
   </div>
 
   <section
-    class="mt-6 rounded-2xl border border-(--color-border) bg-(--color-surface) p-6 shadow-sm"
+    class="mt-5 rounded-2xl border border-(--color-border) bg-(--color-surface) p-5 shadow-sm sm:mt-6 sm:p-6"
   >
-    <h2 class="text-xl font-semibold text-(--color-text)">Order Details</h2>
+    <h2 class="text-lg font-semibold text-(--color-text) sm:text-xl">Order Details</h2>
 
     <div class="mt-5">
       <p class="text-sm text-(--color-muted)">Tracking Number</p>
 
-      <p class="mt-1 break-all font-mono font-semibold text-(--color-text)">
+      <p class="mt-1 break-all font-mono text-sm font-semibold text-(--color-text) sm:text-base">
         {{ order.orderTrackingNumber }}
       </p>
     </div>
   </section>
 
   <section
-    class="mt-6 overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm"
+    class="mt-5 overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm sm:mt-6"
   >
-    <div class="border-b border-(--color-border) px-6 py-5">
-      <h2 class="text-xl font-semibold text-(--color-text)">Your Order</h2>
+    <div class="border-b border-(--color-border) px-5 py-4 sm:px-6 sm:py-5">
+      <h2 class="text-lg font-semibold text-(--color-text) sm:text-xl">Your Order</h2>
 
       <p class="mt-1 text-sm text-(--color-muted)">{{ order.totalQuantity }} items</p>
     </div>
 
     <div class="divide-y divide-(--color-border)">
       @for (item of order.orderedItems; track item.productId) {
-        <div class="flex gap-5 p-6">
-          <div
-            class="flex h-24 w-24 shrink-0 items-center justify-center rounded-xl bg-slate-50 p-3"
-          >
-            <img
-              [ngSrc]="item.imageUrl"
-              [alt]="item.name"
-              width="96"
-              height="96"
-              class="h-full w-full object-contain"
-            />
-          </div>
+        <div class="p-5 sm:p-6">
+          <div class="flex gap-4 sm:gap-5">
+            <div
+              class="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-slate-50 p-2 sm:h-24 sm:w-24 sm:p-3"
+            >
+              <img
+                [ngSrc]="item.imageUrl"
+                [alt]="item.name"
+                width="96"
+                height="96"
+                class="h-full w-full object-contain"
+              />
+            </div>
 
-          <div class="flex flex-1 items-center justify-between gap-4">
-            <div>
+            <div class="min-w-0 flex-1">
               <h3 class="font-semibold text-(--color-text)">
                 {{ item.name }}
               </h3>
@@ -65,9 +67,13 @@
                 {{ item.quantity }} ×
                 {{ item.unitPrice | currency: 'EUR' }}
               </p>
+
+              <p class="mt-2 font-semibold text-(--color-text) sm:hidden">
+                {{ item.unitPrice * item.quantity | currency: 'EUR' }}
+              </p>
             </div>
 
-            <p class="font-semibold text-(--color-text)">
+            <p class="hidden shrink-0 font-semibold text-(--color-text) sm:block">
               {{ item.unitPrice * item.quantity | currency: 'EUR' }}
             </p>
           </div>
@@ -75,28 +81,28 @@
       }
     </div>
 
-    <div class="border-t border-(--color-border) bg-slate-50 px-6 py-5">
-      <div class="flex items-center justify-between">
+    <div class="border-t border-(--color-border) bg-slate-50 px-5 py-4 sm:px-6 sm:py-5">
+      <div class="flex items-center justify-between gap-4">
         <span class="text-lg font-semibold text-(--color-text)"> Total </span>
 
-        <span class="text-2xl font-bold text-(--color-text)">
+        <span class="text-xl font-bold text-(--color-text) sm:text-2xl">
           {{ order.totalPrice | currency: 'EUR' }}
         </span>
       </div>
     </div>
   </section>
 
-  <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-end">
+  <div class="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row sm:justify-end">
     <a
       routerLink="/products"
-      class="inline-flex items-center justify-center rounded-xl border border-(--color-border) bg-(--color-surface) px-5 py-3 font-semibold text-(--color-text) transition hover:bg-slate-50"
+      class="inline-flex w-full items-center justify-center rounded-xl border border-(--color-border) bg-(--color-surface) px-5 py-3 font-semibold text-(--color-text) transition hover:bg-slate-50 sm:w-auto"
     >
       Continue Shopping
     </a>
 
     <a
       routerLink="/account/orders"
-      class="inline-flex items-center justify-center rounded-xl bg-(--color-primary) px-5 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover)"
+      class="inline-flex w-full items-center justify-center rounded-xl bg-(--color-primary) px-5 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover) sm:w-auto"
     >
       View My Orders
     </a>

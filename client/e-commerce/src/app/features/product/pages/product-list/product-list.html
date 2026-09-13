@@ -1,4 +1,4 @@
-<div class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+<div class="mx-auto w-full max-w-7xl px-2 py-6 sm:px-4 sm:py-8 lg:px-8">
   @if (isLoading()) {
     <div class="flex min-h-80 items-center justify-center">
       <div class="flex flex-col items-center gap-4">
@@ -29,14 +29,14 @@
       </div>
     </div>
   } @else {
-    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+    <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       @for (tempProduct of products(); track tempProduct.id) {
         <article
           class="group flex flex-col overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg"
         >
           <a
             [routerLink]="[tempProduct.id]"
-            class="flex h-64 items-center justify-center bg-slate-50 p-6"
+            class="flex h-52 items-center justify-center bg-slate-50 p-4 sm:h-60 sm:p-6"
           >
             <img
               [ngSrc]="tempProduct.imageUrl"
@@ -47,7 +47,7 @@
             />
           </a>
 
-          <div class="flex flex-1 flex-col p-5">
+          <div class="flex flex-1 flex-col p-4 sm:p-5">
             <a [routerLink]="[tempProduct.id]" class="group/title">
               <h2
                 class="line-clamp-2 min-h-14 text-lg font-semibold leading-7 text-(--color-text) transition group-hover/title:text-(--color-accent)"
@@ -97,14 +97,16 @@
 
     @if (totalElements > 0) {
       <div
-        class="mt-10 flex flex-col gap-5 border-t border-(--color-border) pt-7 sm:flex-row sm:items-center sm:justify-between"
+        class="mt-8 flex flex-col gap-5 border-t border-(--color-border) pt-6 sm:mt-10 sm:flex-row sm:items-center sm:justify-between sm:pt-7"
       >
-        <p class="text-sm font-medium text-(--color-muted)">{{ totalElements }} products</p>
+        <p class="text-center text-sm font-medium text-(--color-muted) sm:text-left">
+          {{ totalElements }} products
+        </p>
 
-        <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="flex w-full flex-wrap items-center gap-3 sm:w-auto sm:justify-end">
           <button
             type="button"
-            class="rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2.5 text-sm font-semibold text-(--color-text) transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+            class="flex-1 rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2.5 text-sm font-semibold text-(--color-text) transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
             [disabled]="pageNumber() === 1"
             (click)="previousPage()"
           >
@@ -119,7 +121,7 @@
 
           <button
             type="button"
-            class="rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2.5 text-sm font-semibold text-(--color-text) transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
+            class="flex-1 rounded-lg border border-(--color-border) bg-(--color-surface) px-4 py-2.5 text-sm font-semibold text-(--color-text) transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
             [disabled]="pageNumber() >= totalPages"
             (click)="nextPage()"
           >
@@ -127,7 +129,7 @@
           </button>
 
           <select
-            class="rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2.5 text-sm text-(--color-text) outline-none focus:ring-2 focus:ring-(--color-accent)/30"
+            class="w-full rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2.5 text-sm text-(--color-text) outline-none focus:ring-2 focus:ring-(--color-accent)/30 sm:w-auto"
             [value]="pageSize()"
             #pageSelect
             (change)="updatePageSize(+pageSelect.value)"
