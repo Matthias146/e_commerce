@@ -7,6 +7,7 @@ export class CartService {
 
   readonly cartItems = this.cartItemsState.asReadonly();
   readonly storage: Storage = sessionStorage;
+  readonly cartMessage = signal<string | null>(null);
 
   readonly hasItems = computed(() => this.cartItems().length > 0);
 
@@ -53,6 +54,12 @@ export class CartService {
       this.cartItemsState.update((items) => [...items, cartItem]);
     }
     this.saveCart();
+
+    this.cartMessage.set(`${cartItem.name} was added to your cart.`);
+
+    setTimeout(() => {
+      this.cartMessage.set(null);
+    }, 2500);
   }
 
   decreaseQuantity(cartItem: CartItem): void {
