@@ -19,6 +19,7 @@ export class ProductDetail {
   private readonly route = inject(ActivatedRoute);
   readonly isLoading = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly quantity = signal(1);
 
   readonly product = toSignal(
     this.route.paramMap.pipe(
@@ -51,9 +52,19 @@ export class ProductDetail {
       name: product.name,
       imageUrl: product.imageUrl,
       unitPrice: product.unitPrice,
-      quantity: 1,
+      quantity: this.quantity(),
     };
 
     this.cartService.addToCart(cartItem);
+  }
+
+  increaseQuantity(): void {
+    this.quantity.update((quantity) => quantity + 1);
+  }
+
+  decreaseQuantity(): void {
+    if (this.quantity() > 1) {
+      this.quantity.update((quantity) => quantity - 1);
+    }
   }
 }

@@ -65,12 +65,45 @@
             {{ product.unitPrice | currency: 'EUR' }}
           </p>
 
+          <div class="mt-6">
+            <p class="mb-2 text-sm font-medium text-(--color-text)">Quantity</p>
+
+            <div
+              class="inline-flex items-center overflow-hidden rounded-xl border border-(--color-border) bg-(--color-surface)"
+            >
+              <button
+                type="button"
+                class="flex size-10 items-center justify-center text-(--color-muted) transition hover:bg-slate-100 hover:text-(--color-text) disabled:cursor-not-allowed disabled:opacity-40"
+                [disabled]="quantity() === 1"
+                (click)="decreaseQuantity()"
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+
+              <span
+                class="flex min-w-12 items-center justify-center border-x border-(--color-border) px-3 text-sm font-semibold text-(--color-text)"
+              >
+                {{ quantity() }}
+              </span>
+
+              <button
+                type="button"
+                class="flex size-10 items-center justify-center text-(--color-muted) transition hover:bg-slate-100 hover:text-(--color-text)"
+                (click)="increaseQuantity()"
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
           <button
             type="button"
             (click)="addToCart()"
             class="mt-6 w-full rounded-xl bg-(--color-primary) px-6 py-3 font-semibold text-white transition hover:bg-(--color-primary-hover) sm:mt-8 sm:w-auto"
           >
-            Add to Cart
+            Add {{ quantity() }} to Cart
           </button>
 
           <div class="mt-8 border-t border-(--color-border) pt-6 sm:mt-10 sm:pt-8">
