@@ -37,6 +37,21 @@
     </div>
   } @else {
     @if (product(); as product) {
+      <nav aria-label="Breadcrumb" class="mb-6 text-sm text-(--color-muted)">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li>
+            <a routerLink="/products" class="font-medium transition hover:text-(--color-text)">
+              Products
+            </a>
+          </li>
+
+          <li aria-hidden="true">/</li>
+
+          <li class="max-w-full truncate font-medium text-(--color-text)" aria-current="page">
+            {{ product.name }}
+          </li>
+        </ol>
+      </nav>
       <div class="grid gap-8 lg:grid-cols-2 lg:gap-10">
         <div
           class="flex min-h-72 items-center justify-center rounded-2xl border border-(--color-border) bg-(--color-surface) p-4 sm:min-h-96 sm:p-6 lg:min-h-105 lg:p-8"
