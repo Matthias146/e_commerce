@@ -4,7 +4,7 @@ import { CommonModule, CurrencyPipe, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { catchError, combineLatest, finalize, map, of, switchMap } from 'rxjs';
 import { ProductService } from '../../data/services/product.service';
-import { Product } from '../../data/models/product.interface';
+import { Product, SortOption } from '../../data/models/product.interface';
 import { CartService } from '../../../cart/data/services/cart.service';
 import { CartItem } from '../../../cart/data/models/cartItem.interface';
 
@@ -23,39 +23,24 @@ export class ProductList {
 
   pageNumber = signal(1);
   pageSize = signal(10);
+  readonly sortOption = signal<SortOption>('name-asc');
   totalElements = 100;
   totalPages = 5;
   private readonly pageNumber$ = toObservable(this.pageNumber);
   private readonly pageSize$ = toObservable(this.pageSize);
+  private readonly sortOption$ = toObservable(this.sortOption);
 
   readonly products = toSignal(
-    combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$]).pipe(
-      switchMap(([params, pageNumber, pageSize]) => {
+    combineLatest([this.route.paramMap, this.pageNumber$, this.pageSize$, this.sortOption$]).pipe(
+      switchMap(([params, pageNumber, pageSize, sortOption]) => {
         this.isLoading.set(true);
         this.errorMessage.set(null);
         const keyword = params.get('keyword');
         const categoryId = params.get('categoryId');
 
         if (keyword) {
-          return this.productService.searchProductsPaginate(pageNumber - 1, pageSize, keyword).pipe(
-            map((response) => {
-              this.totalElements = response.page.totalElements;
-              this.totalPages = response.page.totalPages;
-
-              return response._embedded.products;
-            }),
-            catchError(() => {
-              this.errorMessage.set('Products could not be loaded. Please try again.');
-
-              return of([] as Product[]);
-            }),
-            finalize(() => this.isLoading.set(false)),
-          );
-        }
-
-        if (categoryId) {
           return this.productService
-            .getProductsByCategoryPaginate(pageNumber - 1, pageSize, Number(categoryId))
+            .searchProductsPaginate(pageNumber - 1, pageSize, keyword, sortOption)
             .pipe(
               map((response) => {
                 this.totalElements = response.page.totalElements;
@@ -72,20 +57,41 @@ export class ProductList {
             );
         }
 
-        return this.productService.getProductListPaginate(pageNumber - 1, pageSize).pipe(
-          map((response) => {
-            this.totalElements = response.page.totalElements;
-            this.totalPages = response.page.totalPages;
+        if (categoryId) {
+          return this.productService
+            .getProductsByCategoryPaginate(pageNumber - 1, pageSize, Number(categoryId), sortOption)
+            .pipe(
+              map((response) => {
+                this.totalElements = response.page.totalElements;
+                this.totalPages = response.page.totalPages;
 
-            return response._embedded.products;
-          }),
-          catchError(() => {
-            this.errorMessage.set('Products could not be loaded. Please try again.');
+                return response._embedded.products;
+              }),
+              catchError(() => {
+                this.errorMessage.set('Products could not be loaded. Please try again.');
 
-            return of([] as Product[]);
-          }),
-          finalize(() => this.isLoading.set(false)),
-        );
+                return of([] as Product[]);
+              }),
+              finalize(() => this.isLoading.set(false)),
+            );
+        }
+
+        return this.productService
+          .getProductListPaginate(pageNumber - 1, pageSize, sortOption)
+          .pipe(
+            map((response) => {
+              this.totalElements = response.page.totalElements;
+              this.totalPages = response.page.totalPages;
+
+              return response._embedded.products;
+            }),
+            catchError(() => {
+              this.errorMessage.set('Products could not be loaded. Please try again.');
+
+              return of([] as Product[]);
+            }),
+            finalize(() => this.isLoading.set(false)),
+          );
       }),
     ),
     { initialValue: [] as Product[] },
@@ -114,5 +120,9 @@ export class ProductList {
     };
 
     this.cartService.addToCart(cartItem);
+  }
+
+  updateSort(option: SortOption): void {
+    this.sortOption.set(option);
   }
 }

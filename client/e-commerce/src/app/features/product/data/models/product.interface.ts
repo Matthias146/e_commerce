@@ -30,3 +30,5 @@ export interface GetResponseProductsCategory {
     productCategory: ProductCategory[];
   };
 }
+
+export type SortOption = 'name-asc' | 'name-desc' | 'price-asc' | 'price-desc';

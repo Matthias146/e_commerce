@@ -29,6 +29,24 @@
       </div>
     </div>
   } @else {
+    <div class="mb-6 flex justify-end">
+      <div class="flex w-full items-center gap-3 sm:w-auto">
+        <label for="sort" class="shrink-0 text-sm font-medium text-(--color-text)"> Sort by </label>
+
+        <select
+          #sortSelect
+          id="sort"
+          [value]="sortOption()"
+          (change)="updateSort($any(sortSelect.value))"
+          class="w-full rounded-lg border border-(--color-border) bg-(--color-surface) px-3 py-2.5 text-sm text-(--color-text) outline-none focus:ring-2 focus:ring-(--color-accent)/30 sm:w-auto"
+        >
+          <option value="name-asc">Name: A–Z</option>
+          <option value="name-desc">Name: Z–A</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+        </select>
+      </div>
+    </div>
     <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
       @for (tempProduct of products(); track tempProduct.id) {
         <article

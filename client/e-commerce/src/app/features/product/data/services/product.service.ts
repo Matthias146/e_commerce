@@ -6,6 +6,7 @@ import {
   GetResponseProducts,
   GetResponseProductsCategory,
   Product,
+  SortOption,
 } from '../models/product.interface';
 import { ProductCategory } from '../../pages/product-category/product-category';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -24,17 +25,43 @@ export class ProductService {
       .pipe(map((response) => response._embedded.products));
   }
 
-  getProductListPaginate(page: number, pageSize: number): Observable<GetResponseProducts> {
-    return this.http.get<GetResponseProducts>(`${this.baseUrl}?page=${page}&size=${pageSize}`);
+  getProductListPaginate(
+    page: number,
+    pageSize: number,
+    sortOption: SortOption,
+  ): Observable<GetResponseProducts> {
+    const sort = this.getSortParameter(sortOption);
+    return this.http.get<GetResponseProducts>(
+      `${this.baseUrl}?page=${page}&size=${pageSize}&sort=${sort}`,
+    );
+  }
+
+  private getSortParameter(sortOption: SortOption): string {
+    switch (sortOption) {
+      case 'name-desc':
+        return 'name,desc';
+
+      case 'price-asc':
+        return 'unitPrice,asc';
+
+      case 'price-desc':
+        return 'unitPrice,desc';
+
+      case 'name-asc':
+      default:
+        return 'name,asc';
+    }
   }
 
   getProductsByCategoryPaginate(
     page: number,
     pageSize: number,
     categoryId: number,
+    sortOption: SortOption,
   ): Observable<GetResponseProducts> {
+    const sort = this.getSortParameter(sortOption);
     return this.http.get<GetResponseProducts>(
-      `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}`,
+      `${this.baseUrl}/search/findByCategoryId?id=${categoryId}&page=${page}&size=${pageSize}&sort=${sort}`,
     );
   }
 
@@ -42,9 +69,11 @@ export class ProductService {
     page: number,
     pageSize: number,
     keyword: string,
+    sortOption: SortOption,
   ): Observable<GetResponseProducts> {
+    const sort = this.getSortParameter(sortOption);
     return this.http.get<GetResponseProducts>(
-      `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}`,
+      `${this.baseUrl}/search/findByNameContaining?name=${keyword}&page=${page}&size=${pageSize}&sort=${sort}`,
     );
   }
 
