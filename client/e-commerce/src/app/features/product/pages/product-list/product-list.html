@@ -29,6 +29,13 @@
       </div>
     </div>
   } @else {
+    @if (searchKeyword(); as keyword) {
+      <div class="mb-6">
+        <p class="text-sm font-medium text-(--color-muted)">Search results for</p>
+
+        <h1 class="mt-1 text-2xl font-bold text-(--color-text)">“{{ keyword }}”</h1>
+      </div>
+    }
     <div class="mb-6 flex justify-end">
       <div class="flex w-full items-center gap-3 sm:w-auto">
         <label for="sort" class="shrink-0 text-sm font-medium text-(--color-text)"> Sort by </label>
@@ -107,7 +114,13 @@
               />
             </svg>
 
-            <span class="font-medium"> No products found. </span>
+            <span class="font-medium">
+              @if (searchKeyword(); as keyword) {
+                No products found for “{{ keyword }}”.
+              } @else {
+                No products found.
+              }
+            </span>
           </div>
         </div>
       }

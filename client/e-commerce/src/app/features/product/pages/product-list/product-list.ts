@@ -20,6 +20,7 @@ export class ProductList {
   private readonly route = inject(ActivatedRoute);
   readonly isLoading = signal(false);
   readonly errorMessage = signal<string | null>(null);
+  readonly searchKeyword = signal<string | null>(null);
 
   pageNumber = signal(1);
   pageSize = signal(10);
@@ -37,6 +38,7 @@ export class ProductList {
         this.errorMessage.set(null);
         const keyword = params.get('keyword');
         const categoryId = params.get('categoryId');
+        this.searchKeyword.set(keyword);
 
         if (keyword) {
           return this.productService
