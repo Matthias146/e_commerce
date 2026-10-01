@@ -4,10 +4,11 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { AuthService } from '@auth0/auth0-angular';
 import { catchError, finalize, of, switchMap } from 'rxjs';
 import { CurrencyPipe, DatePipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-order-history',
-  imports: [CurrencyPipe, DatePipe],
+  imports: [CurrencyPipe, DatePipe, RouterLink],
   templateUrl: './order-history.html',
   styleUrl: './order-history.scss',
 })

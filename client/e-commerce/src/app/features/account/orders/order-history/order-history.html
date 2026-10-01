@@ -99,6 +99,9 @@
                   <th class="px-6 py-4 font-semibold">Total Quantity</th>
 
                   <th class="px-6 py-4 font-semibold">Date</th>
+                  <th class="px-6 py-4 text-left text-sm font-semibold text-(--color-text)">
+                    Actions
+                  </th>
                 </tr>
               </thead>
 
@@ -121,6 +124,14 @@
 
                     <td class="px-6 py-4 text-(--color-muted)">
                       {{ order.dateCreated | date: 'medium' }}
+                    </td>
+                    <td class="px-6 py-4">
+                      <a
+                        [routerLink]="['/account/orders', order.orderTrackingNumber]"
+                        class="inline-flex items-center rounded-lg border border-(--color-border) px-3 py-2 text-sm font-semibold text-(--color-text) transition hover:bg-slate-50"
+                      >
+                        View details
+                      </a>
                     </td>
                   </tr>
                 }

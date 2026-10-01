@@ -11,6 +11,11 @@ export const accountRoutes: Routes = [
         loadComponent: () =>
           import('./orders/order-history/order-history').then((m) => m.OrderHistory),
       },
+      {
+        path: 'orders/:orderTrackingNumber',
+        loadComponent: () =>
+          import('./orders/order-detail/order-detail').then((m) => m.OrderDetail),
+      },
     ],
   },
 ];

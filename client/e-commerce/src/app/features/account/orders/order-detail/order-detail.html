@@ -1,0 +1,135 @@
+<div class="mx-auto w-full max-w-6xl px-2 py-6 sm:px-4 sm:py-8 lg:px-8 lg:py-10">
+  @if (order(); as order) {
+    <div class="mb-8">
+      <p class="text-sm font-semibold uppercase tracking-wider text-(--color-accent)">
+        Order Details
+      </p>
+
+      <div class="mt-2 flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+        <div>
+          <h1 class="text-2xl font-bold tracking-tight text-(--color-text) sm:text-3xl">
+            Order: {{ order.orderTrackingNumber }}
+          </h1>
+
+          <p class="mt-2 text-sm text-(--color-muted)">
+            Placed on {{ order.dateCreated | date: 'medium' }}
+          </p>
+        </div>
+
+        @if (order.status) {
+          <span
+            class="inline-flex w-fit rounded-full bg-slate-100 px-3 py-1.5 text-sm font-semibold text-(--color-text)"
+          >
+            {{ order.status }}
+          </span>
+        }
+      </div>
+    </div>
+
+    <div class="grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(280px,0.8fr)]">
+      <div class="space-y-8">
+        <section>
+          <h2 class="mb-4 text-lg font-semibold text-(--color-text)">Ordered Items</h2>
+
+          <div
+            class="overflow-hidden rounded-2xl border border-(--color-border) bg-(--color-surface) shadow-sm"
+          >
+            @for (item of order.orderItems; track item.productId) {
+              <div
+                class="flex flex-col gap-4 border-b border-(--color-border) p-4 last:border-b-0 sm:flex-row sm:items-center sm:p-5"
+              >
+                <div
+                  class="flex h-28 w-full shrink-0 items-center justify-center rounded-xl bg-slate-50 p-3 sm:h-24 sm:w-24"
+                >
+                  <img
+                    [src]="item.imageUrl"
+                    [alt]="item.name"
+                    class="h-full w-full object-contain"
+                  />
+                </div>
+
+                <div class="min-w-0 flex-1">
+                  <h3 class="font-semibold text-(--color-text)">
+                    {{ item.name }}
+                  </h3>
+
+                  <p class="mt-1 text-sm text-(--color-muted)">Quantity: {{ item.quantity }}</p>
+
+                  <p class="mt-1 text-sm text-(--color-muted)">
+                    Unit price: {{ item.unitPrice | currency: 'EUR' }}
+                  </p>
+                </div>
+
+                <div class="sm:text-right">
+                  <p class="text-sm text-(--color-muted)">Subtotal</p>
+
+                  <p class="mt-1 text-lg font-bold text-(--color-text)">
+                    {{ item.unitPrice * item.quantity | currency: 'EUR' }}
+                  </p>
+                </div>
+              </div>
+            }
+          </div>
+        </section>
+
+        <section class="grid gap-5 md:grid-cols-2">
+          <div
+            class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-5 shadow-sm"
+          >
+            <h2 class="text-lg font-semibold text-(--color-text)">Shipping Address</h2>
+
+            <address class="mt-4 not-italic leading-7 text-(--color-muted)">
+              {{ order.shippingAddress.street }}<br />
+              {{ order.shippingAddress.zipCode }}
+              {{ order.shippingAddress.city }}<br />
+              {{ order.shippingAddress.state }}<br />
+              {{ order.shippingAddress.country }}
+            </address>
+          </div>
+
+          <div
+            class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-5 shadow-sm"
+          >
+            <h2 class="text-lg font-semibold text-(--color-text)">Billing Address</h2>
+
+            <address class="mt-4 not-italic leading-7 text-(--color-muted)">
+              {{ order.billingAddress.street }}<br />
+              {{ order.billingAddress.zipCode }}
+              {{ order.billingAddress.city }}<br />
+              {{ order.billingAddress.state }}<br />
+              {{ order.billingAddress.country }}
+            </address>
+          </div>
+        </section>
+      </div>
+
+      <aside>
+        <div
+          class="rounded-2xl border border-(--color-border) bg-(--color-surface) p-5 shadow-sm lg:sticky lg:top-6"
+        >
+          <h2 class="text-lg font-semibold text-(--color-text)">Order Summary</h2>
+
+          <div class="mt-5 space-y-4">
+            <div class="flex items-center justify-between gap-4">
+              <span class="text-sm text-(--color-muted)"> Total quantity </span>
+
+              <span class="font-semibold text-(--color-text)">
+                {{ order.totalQuantity }}
+              </span>
+            </div>
+
+            <div
+              class="flex items-center justify-between gap-4 border-t border-(--color-border) pt-4"
+            >
+              <span class="font-semibold text-(--color-text)"> Total </span>
+
+              <span class="text-xl font-bold text-(--color-text)">
+                {{ order.totalPrice | currency: 'EUR' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  }
+</div>
