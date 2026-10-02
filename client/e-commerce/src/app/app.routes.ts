@@ -5,6 +5,8 @@ import { ProductDetail } from './features/product/pages/product-detail/product-d
 import { CartDetail } from './features/cart/pages/cart-detail/cart-detail';
 import { Checkout } from './features/checkout/pages/checkout/checkout';
 import { OrderSuccess } from './features/checkout/pages/order-success/order-success';
+import { Privacy } from './features/legal/privacy/privacy';
+import { Imprint } from './features/legal/imprint/imprint';
 
 export const routes: Routes = [
   {
@@ -29,6 +31,8 @@ export const routes: Routes = [
       { path: 'cart-details', component: CartDetail },
       { path: 'checkout', component: Checkout },
       { path: 'checkout/success', component: OrderSuccess },
+      { path: 'privacy', component: Privacy },
+      { path: 'imprint', component: Imprint },
       {
         path: 'account',
         loadChildren: () =>
