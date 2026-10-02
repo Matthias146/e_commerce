@@ -7,7 +7,6 @@ import com.spring.ecommerce.dto.PurchaseResponse;
 import com.spring.ecommerce.service.CheckoutService;
 import com.stripe.exception.StripeException;
 import com.stripe.model.PaymentIntent;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

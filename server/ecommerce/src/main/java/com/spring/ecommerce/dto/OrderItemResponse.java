@@ -1,4 +1,10 @@
 package com.spring.ecommerce.dto;
 
-public record OrderItemResponse() {
+import java.math.BigDecimal;
+
+public record OrderItemResponse(Long productId,
+                                String name,
+                                String imageUrl,
+                                BigDecimal unitPrice,
+                                int quantity) {
 }
